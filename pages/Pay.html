@@ -4,47 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="pay.css">
 </head>
-<body>
+<body >
     <header>
-        <nav>
-            <a href="home.html"><img src="assets/svg/logo.svg" alt="CU"></a>
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="product.html">Бүтээгдэхүүн</a></li>
-                <li><a href="promotion.html">Урамшуулал</a></li>
-                <li><a href="location.html">Дэлгүүрийн байршил</a></li>
-                <li><a href="contact.html">Холбоо барих</a></li>
-            </ul>
-            <a href="basket.html"><img src="assets/svg/basket.svg" alt="Сагс"></a>
+        <nav class="nav-bar">
+            <a href="Home.html"><img src="assets/svg/logo.svg" alt="CU" class="space"></a>
+            <nav class="column" >
+                <form class="search-bar">
+                    <input type="text" placeholder="Хайх">
+                    
+                </form>
+                <ul class="menu">
+                    <li class="tses"><a href="Home.html">Home</a></li>
+                    <li class="tses"><a href="Product.html">Бүтээгдэхүүн</a></li>
+                    <li class="tses"><a href="Promotion.html">Урамшуулал</a></li>
+                  
+                </ul> 
+            </nav>
+            <a href="basket.html"><img src="assets/svg/basket.svg" alt="Сагс" class="space"></a>
         </nav>
     </header>
-
-        <fieldset>
-                <legend>Захиалагчын мэдээлэл</legend>
-                <input type="text" name="firstName" placeholder="Нэр">
-                <input type="text" name="lastName" placeholder="Овог">
-                <input type="text" name="phoneNumber" placeholder="Утасны дугаар">
-                <input type="email" name="eMail" placeholder="Цахим хаяг">
-                <input type="text" name="address" placeholder="Таны хаяг">
-                <input type="text" name="description" placeholder="Тайлбар">
-        </fieldset>
-        <article>
-            <header>
-                <h2>Таны Захиалга</h2>
-            </header>
-            <section>
-                <header>
-                    <h3><span>Бүтээгдэхүүн</span><span>Үнийн дүн</span></h3>                   
-                </header>
-                    <p><span>Бингсү</span> x <span>5</span><span> 37500₮</span></p>
-                    <p><span>Латте</span> x <span>1</span><span> 4500₮</span></p>
-                    <p><span>Сармистай талх</span> x <span>1</span><span> 5500₮</span></p>
-                    <p><span>Нийт дүн</span> <span>47500₮</span></p>
-                    <button>Төлбөр төлөх</button>
+    <main>
+        <article class="container1">
+            <h2>Захиалагчын мэдээлэл</h2>
+            <form>
+                <div class="rowflex" >
+                    <input type="text" name="firstName" placeholder="Нэр">
+                    <input type="text" name="lastName" placeholder="Овог">
+                </div>
+                <div class="columnflex">
+                    <input type="text" name="phoneNumber" placeholder="Утасны дугаар">
+                    <input type="email" name="eMail" placeholder="Цахим хаяг">
+                    <input type="text" name="address" placeholder="Таны хаяг">
+                    <textarea name="description" id="" cols="30" rows="6" placeholder="Тайлбар"></textarea>
+                </div>
+                
+            </form>
             
+        </article>
+         <article class="container2">
+            <h2>Таны Захиалга</h2>
+            <section class="sect">
+                <header>
+                    <h3><span>Бүтээгдэхүүн</span></h3>
+                    <h3><span>Үнийн дүн</span></h3>    
+                </header>                 
+                <main class="scroll">
+                    <div class="rowflex">
+                        <p><span>Сармистай талх</span><span class="red"> x </span><span>1</span></p>
+                        <p><span> 5500₮</span></p>
+                    </div>
+                    <div class="rowflex">
+                        <p><span>Сармистай талх</span><span class="red"> x </span><span>1</span></p>
+                        <p><span> 5500₮</span></p>
+                    </div>
+                    <div class="rowflex">
+                        <p><span>Сармистай талх</span><span class="red"> x </span><span>1</span></p>
+                        <p><span> 5500₮</span></p>
+                    </div>
+                    <div class="rowflex">
+                        <p><span>Сармистай талх</span><span class="red"> x </span><span>1</span></p>
+                        <p><span> 5500₮</span></p>
+                    </div>
+                    <div class="rowflex">
+                        <p><span>Сармистай талх</span><span class="red"> x </span><span>1</span></p>
+                        <p><span> 5500₮</span></p>
+                    </div>
+                    <div class="rowflex">
+                        <p><span>Сармистай талх</span><span class="red"> x </span><span>1</span></p>
+                        <p><span> 5500₮</span></p>
+                    </div>
+                    <div class="rowflex">
+                        <p><span>Сармистай талх</span><span class="red"> x </span><span>1</span></p>
+                        <p><span> 5500₮</span></p>
+                    </div>
+                    <div class="rowflex">
+                        <p><span>Сармистай талх</span><span class="red"> x </span><span>1</span></p>
+                        <p><span> 5500₮</span></p>
+                    </div>
+                    <div class="rowflex">
+                        <p><span>Сармистай талх</span><span class="red"> x </span><span>1</span></p>
+                        <p><span> 5500₮</span></p>
+                    </div>
+                    <div class="rowflex">
+                        <p><span>Сармистай талх</span><span class="red"> x </span><span>1</span></p>
+                        <p><span> 5500₮</span></p>
+                    </div>          
+                </main>
+                <section class="rowflex">
+                    <h3> <span>Нийт дүн</span> </h3>
+                    <h3><span>47500₮</span></h3>
+                </section>
+                <div class="cntr">
+                    <div class="btn">
+                        <a href="Promotion.html" role="button">Төлбөр төлөх</a> 
+                    </div>
+                </div>
+                
             </section>
         </article>
+    </main>
+        
     <footer>
         <a href="Home.html"><img src="assets/svg/CUMongolia.svg" alt="CuHome"></a>
         <section>

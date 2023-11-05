@@ -1,0 +1,123 @@
+/* Reset some default styles */
+
+/* Style the header section */
+.nogoon {
+    color: #3FDA26;
+}
+.yagaan {
+    color: #D9ABFD;
+}
+.nilyagaan {
+    color: #8101CF;
+}
+
+html{
+    height:100%;
+}
+
+header {
+    padding: 0.625rem; 
+    margin:0.625rem;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    grid-gap:0.625rem;  
+     
+}
+header h1{  
+    margin-top:0.625rem;
+    text-align:center;
+    color:#D9ABFD;
+    
+}
+header a{
+    margin-top:0.625rem;
+    width:1.25rem;
+    height:1.25rem;
+    color:#FFFFFF;
+    background-color:#D9ABFD;
+    text-decoration:none;
+    display:inline-block;
+    border-radius:50px;
+    
+}
+
+
+
+body {
+    width: 15vw;
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+.scroll{
+    width:20rem;
+    height:30rem;
+    overflow:auto;
+    border-bottom:#D9ABFD 1px solid;
+}
+
+.baraa {
+    margin: 0.625rem; 
+    padding: 0.625rem; 
+    border: 1px solid #D9ABFD;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0.625rem; 
+    border-radius: 5px;
+}
+
+
+.baraa img {
+    width: 3.125rem; 
+    height: 3.125rem; 
+    margin-right: 0.625rem; 
+    border-radius: 10px;
+}
+
+.baraa h3 {
+    font-size: 0.75rem;
+    margin-top: 0.625rem; 
+    text-align: right;
+}
+
+.baraa p {
+    font-size: 0.75rem;
+    text-align: right;
+}
+
+.totalprice {
+    margin: 0.625rem; 
+    padding: 0.625rem; 
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0.625rem; 
+    
+}
+
+
+.totalprice h2 {
+    font-size: 1rem;
+    margin: 1.25rem 0; /* Convert 20px to rem */
+    text-align: right;
+    color:#D9ABFD;
+}
+
+.btn a[role="button"] {
+    background-color: #3FDA26;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0.625rem 1.25rem; /* Convert 10px and 20px to rem */
+    display: inline-block;
+    border-radius: 10px; /* Convert 10px to rem */
+}
+
+.btn a:hover {
+    background-color: #8101CF;
+}
+footer{
+    margin-top:auto;
+    padding-bottom:10vh;
+}
