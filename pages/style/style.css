@@ -51,3 +51,161 @@ footer {
     justify-content: space-between;
     align-items: center;
 }
+.frontImage{
+    width: 100%;
+    height: auto;
+    
+}
+.text-and-image-article {
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+}
+
+.text-and-image-article h3 {
+    font-size: 48px;
+    width: 30%;
+    font-weight: bold;
+    padding-left: 5%;
+    
+    
+}
+
+.top-left-image{
+    max-width: 25%;
+    height: auto;
+    margin-bottom: 126px;
+}
+.bottom-right-image{
+    max-width: 25%;
+    height: auto;
+    margin-top: 126px;
+}
+.promotion, .Service{
+    padding-right: 10%;
+    padding-left: 10%;
+
+}   
+
+.product{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border: 5px solid #D9ABFD;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    
+}
+.product img{ 
+    width: 100%;
+    border-radius: 10px;
+}
+.products{
+    
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 30px;
+    grid-row-gap: 42px;
+    margin-top: 57px;
+    
+}
+@media (max-width: 1120px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    body, p {
+        font-size: 14px; 
+    }
+
+
+
+}
+@media (max-width: 600px) {
+    .products {
+        grid-template-columns: 1fr;
+    }
+    body, p {
+        font-size: 12px;
+    }
+
+}
+.promotionButton {
+    display: block; 
+    margin: 0 auto; 
+    width: 200px;
+    border-radius: 15px; 
+    border:  #3FDA26; 
+    background-color: #3FDA26;
+    color: #FFFFFF; 
+    padding: 12px;
+    margin-top: 42px; 
+}
+.product span {
+    position: absolute;
+    right: 20px;
+    background-color: #FF0000; 
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-weight: 600;
+    border-radius: 10px;
+    color: white;
+}
+.product h3{
+    color: black;
+    padding-top: 20px;
+    font-size: 20px;
+}
+.product button{
+    display: block; 
+    width: 120px;
+    border-radius: 15px; 
+    color: #FFFFFF; 
+    padding: 3px;
+    border:  #D9ABFD; 
+    background-color: #D9ABFD;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 20px;
+}
+.product strong{
+    position: absolute;
+    bottom: 55px;
+    right: 20px;
+    font-size: 20px;
+}
+.product p{
+    padding-bottom: 65px;
+    padding-top: 6px;
+}
+.discount{
+    text-decoration: line-through;
+    position: absolute;
+    bottom: -10px;
+    font-size: 20px;
+
+}
+
+.Service h2, .promotion h2{
+    text-align: center;
+    font-weight: bold;
+    color: #8101CF;
+    font-size: 48px;
+    font-weight: bold;
+}
+.Service{
+    text-align: center;
+    white-space: nowrap; 
+    overflow-x: auto;
+}
+.Service img{
+    display: inline-block;
+    padding: 20px;
+    width: 120px;
+    height: 120px;
+}
