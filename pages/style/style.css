@@ -59,6 +59,7 @@ footer {
     color: white;
     text-align: center;
     padding: 20px 0;
+    margin-top: 20px;
 }
 footer ul{
     display: flex;
@@ -102,8 +103,8 @@ footer p{
 }
 /*body hesgiin padding*/
 .promotion, .Service,.suggest{
-    padding-right: 10%;
-    padding-left: 10%;
+    margin-right: 10%;
+    margin-left: 10%;
 
 }   
 /*buteegdehuunii undsen class herev hemjeenees hetervel ... haragduulna*/
@@ -233,16 +234,24 @@ footer p{
 }
 /*service scroll, center*/
 .Service{
-    text-align: center;
-    white-space: nowrap; 
-    overflow-x: auto;
+    margin-top: 20px;
+    width: 80%;
+    overflow: hidden;
 }
 /* uilchilgeenii zurag hemjee */
 .Service img{
-    display: inline-block;
     padding: 20px;
-    width: 120px;
-    height: 120px;  
+    width: 100%;
+    height: auto;  
+     object-fit: cover;
+}
+.carousel{
+    display: flex;
+    transition: transform 0.5s ease;
+    
+}
+.Service button {
+    cursor: pointer; /* Add cursor: pointer to indicate that the buttons are clickable */
 }
 .slideshow-container {
     position: relative;
