@@ -72,11 +72,7 @@ footer p{
     padding: 10px;
 }
 /*nuuren zurag*/
-.frontImage{
-    width: 100%;
-    height: auto;
-    
-}
+
 /*sanal bolgoh */
 .suggest {
     display: flex;
@@ -248,3 +244,40 @@ footer p{
     width: 120px;
     height: 120px;  
 }
+.slideshow-container {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    width: 3.5vw;
+    height: 3.5vw;
+    margin-top: -22px;
+    padding: 16px;
+    margin-left:16px ;
+    margin-right:16px ;
+
+}
+
+.prev {
+    left: 0;
+    border-radius: 100%;
+
+}
+
+.next {
+    right: 0;
+    border-radius: 100%;
+}
+.frontImage{
+    width: 100%;
+    height: auto;
+
+
+    
+}
+
+

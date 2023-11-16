@@ -6,10 +6,11 @@
         <title>Home</title>
         <meta name="description" content="CU web">
         <link rel="stylesheet" type="text/css" href="style\style.css">
-
+        <script src="js\home.js"></script>
     </head>
 
     <body>
+        
         <header>
             <nav class="navbar">
                 <a href="Home.html" class="logo"><img src="assets/svg/logo.svg" alt="CU Mongolia Home"></a>
@@ -24,7 +25,11 @@
                 <a href="Basket.html" class="basket"><img src="assets/svg/basket.svg" alt="Shopping Basket"></a>
             </nav>
         </header>
-                <img src="assets/png/frontImage.png" alt="breakfast" class="frontImage">
+        <div class="slideshow-container">
+            <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+            <img src="assets/png/frontImage1.png" alt="breakfast" class="frontImage" id="slideshow">
+            <button class="next" onclick="plusSlides(1)">&#10095;</button>
+        </div>
                 <section class="suggest">
                     <h3>Та өглөөний цайгаа ууж амжаагүй юм биш биз?</h3>
                     <img src="assets/png/suggest1.png" alt="suggest1" class="top-left-image">
