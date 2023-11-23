@@ -6,23 +6,39 @@
         <title>Home</title>
         <meta name="description" content="CU web">
         <link rel="stylesheet" type="text/css" href="style\style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
         <script src="js\home.js" defer></script>
     </head>
 
     <body>
-        
+        </script>
         <header>
-            <nav class="navbar">
-                <a href="Home.html" class="logo"><img src="assets/svg/logo.svg" alt="CU Mongolia Home"></a>
+            <input type="checkbox" id="check">
+            <nav>
+            
+                <a href="Home.html" class="icon"><img src="assets/svg/logo.svg" alt="CU" ></a>
                 
-                <ul class="menu">
-                    <input class="search" type="text" placeholder="Search..">
-                    <li><a href="Home.html">Home</a></li>
-                    <li><a href="Product.html">Product</a></li>
-                    <li><a href="Location.html">Location</a></li>
-                    <li><a href="Private.html">Private</a></li>
-                </ul>
-                <a href="Basket.html" class="basket"><img src="assets/svg/basket.svg" alt="Shopping Basket"></a>
+                <div class="columnFlex">
+                    <div class="searchBox">
+                        <input type="search" placeholder="хайх">
+                        <span class="fa fa-search"></span>
+                    </div>
+                    <ul > 
+                        <li ><a href="Home.html">Нүүр Хуудас</a></li>
+                        <li ><a href="Product.html">Бүтээгдэхүүн</a></li>
+                        <li ><a href="Promotion.html">Урамшуулал</a></li>
+                        <li ><a href='Location.html'>Байршил</a></li>
+                        <li ><a href='Contact.html'>Холбоо барих</a></li>
+                    </ul> 
+                
+                </div>
+                <label for="check" class="bar" >
+                    <span class="fa fa-bars" id="bars"></span>
+                    <span class="fa fa-times" id="times"></span>
+                </label>
+                <button class="basketIcon" id="openBasketBtn"><img src="assets/svg/basket.svg" alt="Сагс"></button>
+                
+                
             </nav>
         </header>
         <div class="slideshow-container">
@@ -72,6 +88,66 @@
                 Бүгдийг харах
             </button>
         </section>
+        <!-- <script>
+                       const openBtn=document.getElementById('openBasketBtn');
+         const basket=document.getElementById('sideBasket');
+                const closeBtn=document.getElementById('btnClose');
+                const backdrop=document.querySelector('.backDrop');
+
+                openBtn.addEventListener('click',openBasket);
+                closeBtn.addEventListener('click',closeBasket);
+
+                function openBasket(){
+                    basket.classList.add('open');
+                    backdrop.classList.add('show');
+                }
+
+                function closeBasket(){
+                    basket.classList.remove('open');
+                    backdrop.classList.remove('show');
+}
+        </script> -->
+
+        <!-- End sagsni code -->
+        <div class="backDrop"></div>
+    <!--Хажуугаас гарж ирэх сагс-->
+    <aside id="sideBasket" class="sideBasket">
+        <section class="basketContent">
+            <header class="basketHeader">
+                <img src="assets/svg/basket.svg" alt="" style="width: 30px">
+                <section class="headerTitle">
+                    <h2>Таны сагс</h2>
+                    <span id="itemNum">10</span>
+                </section>
+                <div class="removeItem">
+                    <span id="btnClose" class="btnClose">&times;</span>
+                </div>
+            </header>
+            <main class="basketScroll" id="basketItems">
+                <!--Эхний бараа-->
+                <div class="basketItem">
+                    <div class="itemDetails">
+                        <img src="assets/png/product2.png" alt="Bingsu">
+                        <article >
+                            <h3>Бингсү</h3>
+                            <p><span>5</span> x <span class="nogoon">7500₮</span></p>
+                        </article>
+                    </div>
+                    <div class="removeItem">&times;</div>
+                </div>
+
+                
+                
+            </main>
+            <div class="basketActions">
+                <section class="total">
+                    <h3>Нийт үнэ:</h3>
+                    <h3><span class="totalPrice" id="totalPrice">47500</span>₮</h3>
+                </section>
+                <button>Төлбөр төлөх</button>
+            </div>
+        </section>
+    </aside> 
         <footer>
             <a href="Home.html"><img src="assets/svg/CUMongolia.svg" alt="CuHome"></a>
             <section>

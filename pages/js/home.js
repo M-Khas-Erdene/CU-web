@@ -1,3 +1,4 @@
+
 let currentSlide = 0;
 const slides = [
     "assets/png/frontImage1.png",
@@ -18,27 +19,27 @@ function plusSlides(n) {
     }
     showSlide();
 }
+
 // Sample data for promotion products
 const promotionData = [
-    {  name: 'Choco melon', description: 'Double choco melon pan 100гр',  Price: '2750₮', image: 'product5.png',discount: '50%',discountingPrice: '5500₮' },
-    {  name: 'Coffee cream pan', description: 'Coffee cream pan 100гр', Price: '5500₮', image: 'product6.png',discount: '1+1' },
-    { name: 'Мөстэй американо', description: 'CU 120гр', Price: '3150₮', image: 'Product7.png', discount: '30%', discountingPrice: '4500₮' },
-    { name: 'Алаг донат', description: 'CU 80гр', discountedPrice: '3500₮', image: 'product8.png',discount: '1+1' },
+  {  name: 'Choco melon', description: 'Double choco melon pan 100гр',  Price: '2750₮', image: 'product5.png',discount: '50%',discountingPrice: '5500₮',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne' },
+  {  name: 'Coffee cream pan', description: 'Coffee cream pan 100гр', Price: '5500₮', image: 'product6.png',discount: '1+1',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne'  },
+  { name: 'Мөстэй американо', description: 'CU 120гр', Price: '3150₮', image: 'Product7.png', discount: '30%', discountingPrice: '4500₮',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne'  },
+  { name: 'Алаг донат', description: 'CU 80гр', discountedPrice: '3500₮', image: 'product8.png',discount: '1+1',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne'  },
 ];
 const productData = [
-    {  name: 'Choco melon', description: 'Double choco melon pan 100гр',  Price: '2750₮', image: 'product5.png',discount: '50%',discountingPrice: '5500₮' },
-    {  name: 'Coffee cream pan', description: 'Coffee cream pan 100гр', Price: '5500₮', image: 'product6.png',discount: '1+1' },
-    { name: 'Мөстэй американо', description: 'CU 120гр', Price: '3150₮', image: 'Product7.png', discount: '30%', discountingPrice: '4500₮' },
-    { name: 'Алаг донат', description: 'CU 80гр', discountedPrice: '3500₮', image: 'product8.png',discount: '1+1' },
-    {  name: 'Choco melon', description: 'Double choco melon pan 100гр',  Price: '2750₮', image: 'product5.png',discount: '50%',discountingPrice: '5500₮' },
-    {  name: 'Coffee cream pan', description: 'Coffee cream pan 100гр', Price: '5500₮', image: 'product6.png',discount: '1+1' },
-    { name: 'Мөстэй американо', description: 'CU 120гр', Price: '3150₮', image: 'Product7.png', discount: '30%', discountingPrice: '4500₮' },
-    { name: 'Алаг донат', description: 'CU 80гр', discountedPrice: '3500₮', image: 'product8.png',discount: '1+1' },
+  {  name: 'Choco melon', description: 'Double choco melon pan 100гр',  Price: '2750₮', image: 'product5.png',discount: '50%',discountingPrice: '5500₮' ,manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne' },
+  {  name: 'Coffee cream pan', description: 'Coffee cream pan 100гр', Price: '5500₮', image: 'product6.png',discount: '1+1',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne'  },
+  { name: 'Мөстэй американо', description: 'CU 120гр', Price: '3150₮', image: 'Product7.png', discount: '30%', discountingPrice: '4500₮' ,manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne' },
+  { name: 'Алаг донат', description: 'CU 80гр', discountedPrice: '3500₮', image: 'product8.png',discount: '1+1',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne'  },
+  {  name: 'Choco melon', description: 'Double choco melon pan 100гр',  Price: '2750₮', image: 'product5.png',discount: '50%',discountingPrice: '5500₮',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne'  },
+  {  name: 'Coffee cream pan', description: 'Coffee cream pan 100гр', Price: '5500₮', image: 'product6.png',discount: '1+1' ,manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne' },
+  { name: 'Мөстэй американо', description: 'CU 120гр', Price: '3150₮', image: 'Product7.png', discount: '30%', discountingPrice: '4500₮',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne'  },
+  { name: 'Алаг донат', description: 'CU 80гр', discountedPrice: '3500₮', image: 'product8.png',discount: '1+1',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne'  },
 ];
 
-
 class Product {
-    constructor(name, description, Price, image, discount, discountingPrice) {
+    constructor(name, description, Price, image, discount, discountingPrice,manufacturer,weight,expiration,ingredients,instructions,storage) {
       this.discount = discount||null;
       this.name = name;
       this.description = description;
@@ -46,6 +47,12 @@ class Product {
       this.Price = Price ||null;
       this.discountingPrice = discountingPrice;
       this.image = image;
+      this.manufacturer=manufacturer;
+      this.weight=weight;
+      this.expiration=expiration;
+      this.ingredients=ingredients;
+      this.instructions=instructions;
+      this.storage=storage;
     }
     
 
@@ -75,7 +82,38 @@ class Product {
             <strong>${this.Price}</strong>
             <button>Сагслах</button>
           </article>
-        `;
+          <div class="productGet">
+          <div class="productExit">
+              <span id="btnClose" class>&times;</span>
+          </div>
+          <article class="productDescription">
+              <h2>${this.name}</h2>
+              <div class="productPrice">
+                  <h2>${this.Price}</h2>
+                  <h2>${this.Price}</h2>
+              </div>
+              <div class="productDetails">
+                  <p>${this.manufacturer}:</p>
+                  <p>${this.weight}:</p>
+                  <p>${this.expiration}:</p>
+                  <p>${this.ingredients}:</p>
+                  <p>${this.instructions}:</p>
+                  <p>${this.storage}:</p>
+              </div>
+              <div class="buttons">
+                  <button>авах</button>
+                  <button>❤️</button>
+                  <button>Сагслах</button>
+                  <div class="productAdd">
+                      <button>+</button>
+                      <button>0</button>
+                      <button>-</button>
+                  </div>
+              </div>
+          </article>
+          <figure><img src="assets/png/product1.png" alt=""></figure>
+      </div>`
+        ;
       
         return html;
       }
@@ -125,3 +163,22 @@ class Product {
         document.querySelector(".nex").addEventListener("click", nextImage);
         document.querySelector(".pre").addEventListener("click", prevImage);
     });
+
+
+const openBtn=document.getElementById('openBasketBtn');
+const basket=document.getElementById('sideBasket');
+const closeBtn=document.getElementById('btnClose');
+const backdrop=document.querySelector('.backDrop');
+
+openBtn.addEventListener('click',openBasket);
+closeBtn.addEventListener('click',closeBasket);
+
+function openBasket(){
+    basket.classList.add('open');
+    backdrop.classList.add('show');
+}
+
+function closeBasket(){
+    basket.classList.remove('open');
+    backdrop.classList.remove('show');
+}
