@@ -188,36 +188,47 @@ footer p{
     
 }
 /* buteegdehuunii delgerengui medeelel */
-.productExit{
+  .productExit{
     position:absolute;
     right:10px;
     top:10px;
     font-size:20px;
     cursor:pointer;
+    
   }
   .productGet{ 
       visibility:hidden;
       opacity:0;
       position:fixed;
       top:25%;
-      left:25%;
       right:25%;
+      left:25%;
       background-color:#fff;
       box-shadow:-10px 0 15px rgba(0,0,0,0.1);
       transition: transform 0.5s ease-in-out;
       z-index:2;
-      border:1px solid #D9ABFD;
-      border-radius:25px;
+      border-radius:10px;
       display:grid;
       grid-template-columns: repeat(2,1fr);
-      justify-content:space-between;
+      justify-content:center;
       background:#FFFFFF;
   }
+ 
   .productGet.active{
     visibility:visible;
     opacity:1;
   }
+  .productGet .productDetails{
+    display:flex;
+    flex-direction:column;
+    margin:10px;
+    align-items:flex-start;
+  }
   .productDescription{
+      display:flex;
+      flex-direction:column;
+      justify-content: flex-end;
+      align-items:flex-start;
       background:white;
       padding:20px;
       text-align:center;
@@ -227,33 +238,80 @@ footer p{
   }
   .productPrice{
       display:flex;
-      gap:50px;
+      gap:10px;
+  }
+  .productPrice .discountingPrice{
+    text-decoration:line-through;
+    font-size:26px;
+    margin-top:18px;
+    opacity:0.5;
   }
   .productGet figure{
-      margin-right:10px;
+      display:flex;
+      align-items:center;
+      flex-direction:column;
   }
   .productGet figure img{
-      border:3px solid #D9ABFD;
+
+      border:2px solid #D9ABFD;
       padding:5px;
-      border-radius:10px;
-  }
-  
-  .productGet .buttons{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      grid-gap:5px;
-      justify-content:flex-start;
-  }
-  .productGet .buttons button{
-      outline:none;
-      border:none;
-      color:#FFFFFF;
-      background:#D9ABFD;
       border-radius:5px;
+      height:auto;
+      width:400;
   }
-  .productGet .buttons button .productAdd button{
-      color:#000;
-      background:#FFFFFF;
+  .productGet figure span{
+ 
+    background-color: #FF0000; 
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-weight: 600;
+    border-radius: 0px;
+    color: white;
+  }
+ 
+  .productGet .buttons{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+  }
+
+  .productGet .buttons  .b{
+    display: block; 
+    width: 120px;
+    border-radius: 15px; 
+    color: #FFFFFF; 
+    padding: 3px;
+    border:none;
+    background-color: #D9ABFD;
+    font-size: 20px;
+  }
+  .productGet .buttons .b-favouriteProduct{
+    display:flex;
+    flex-direction:row;
+    gap:5px;
+  }
+  .productGet .buttons .b-favouriteProduct .favouriteProduct{
+    color:#FFFFFF;
+    background-color:#D9ABFD;
+    border:none;
+    border-radius:15px;
+    width:30px;
+  }
+  .productGet .buttons .b-productAdd{
+    display:flex;
+    flex-direction:row;
+    gap:5px;
+  }
+  .productGet .buttons .productAdd *{
+      font-size:20px;
+      border:none;
+      border:1px solid #D9ABFD;
+      background-color:transparent;
+      padding-right:10px;
+      padding-left:10px;
+      border-radius:5px;
   }
 
 
@@ -499,8 +557,22 @@ footer p{
     .suggest h3 {
         font-size: 28px;
     }
-
-
+    .productGet{
+        display: flex;
+        flex-direction:column;
+        align-items:left;
+        top:10%;
+        right:15%;
+        left:15%;
+    }
+    .productGet figure{
+        align-items:flex-start;
+    }
+    .productGet figure img{
+        width:250px;
+        height:auto;
+        border:5px solid #D9ABFD;
+    }
 }
 /*hemjee zaah*/
 @media (max-width: 550px) {
@@ -640,9 +712,7 @@ footer p{
 .frontImage{
     width: 100%;
     height: auto;
-
-
-    
 }
+
 
 

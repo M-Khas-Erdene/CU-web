@@ -72,11 +72,16 @@ class Product {
         <div class="productExit">
             <span class="close-popup">&times;</span>
         </div>
-        <article class="productDescription" id=>
-            <h2>${this.name}</h2>
+        <figure>
+        <figcaption><span>${this.discount}</span></figcaption>
+        <img src="assets/png/${this.image}" alt="">
+         
+        </figure>
+        <article class="productDescription">
+          <h2>${this.name}</h2>
             <div class="productPrice">
-                <h2>${this.Price}</h2>
-                <h2>${this.Price}</h2>
+                <h2 class="discountingPrice">${this.discountingPrice}</h2>
+                <h2 class="normalPrice">${this.Price}</h2>
             </div>
             <div class="productDetails">
                 <p>Үйлдвэрлэгч:${this.manufacturer}</p>
@@ -87,17 +92,17 @@ class Product {
                 <p>Хадгалах горим:${this.storage}</p>
             </div>
             <div class="buttons">
-                <button>авах</button>
-                <button>❤️</button>
-                <button>Сагслах</button>
+                <div class="b-favouriteProduct"><button class="b">авах</button>
+                <button class="favouriteProduct"><i class="fa fa-heart" class="fa fa-heart" aria-hidden="true"></i></button></div>
+                <div class="b-productAdd"> <button class="b">Сагслах</button>
                 <div class="productAdd">
                     <button>+</button>
                     <button>0</button>
                     <button>-</button>
-                </div>
+                </div></div>
             </div>
         </article>
-        <figure><img src="assets/png/${this.image}" alt=""></figure>
+       
     </div>`
         return html
 
