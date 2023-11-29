@@ -4,198 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="style\product.css">
+    <meta name="description" content="CU web">
+    <link rel="stylesheet" type="text/css" href="style\style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="js\home.js" defer></script>
 </head>
+
 <body>
+ 
     <header>
-        <nav class="navbar">
-            <a href="Home.html"><img src="assets/svg/logo.svg" alt="CU Mongolia Home" ></a>
-            <input class="search" type="text" placeholder="Search..">
-            <ul class="menu">
-                <li><a href='Home.html'>Home</a></li>
-                <li><a href='Promotion.html'>Promotion</a></li>
-                <li><a href='Product.html'>Product</a></li>
-                <li><a href='Location.html'>Location</a></li>
-            </ul>
-            <a href="Basket.html"><img src="assets/svg/basket.svg" alt="Shopping Basket" ></a>
+        <input type="checkbox" id="check">
+        <nav>
+        
+            <a href="Home.html" class="icon"><img src="assets/svg/logo.svg" alt="CU" ></a>
+            
+            <div class="columnFlex">
+                <div class="searchBox">
+                    <input type="search" placeholder="хайх">
+                    <span class="fa fa-search"></span>
+                </div>
+                <ul > 
+                    <li ><a href="Home.html">Нүүр Хуудас</a></li>
+                    <li ><a href="Product.html">Бүтээгдэхүүн</a></li>
+                    <li ><a href="Promotion.html">Урамшуулал</a></li>
+                    <li ><a href='Location.html'>Байршил</a></li>
+                    <li ><a href='Contact.html'>Холбоо барих</a></li>
+                </ul> 
+            
+            </div>
+            <label for="check" class="bar" >
+                <span class="fa fa-bars" id="bars"></span>
+                <span class="fa fa-times" id="times"></span>
+            </label>
+            <button class="basketIcon" id="openBasketBtn"><img src="assets/svg/basket.svg" alt="Сагс"></button>
+            
+            
         </nav>
     </header>
-    <h1 class="category">Ангилал</h1>
-    <div class="container">
-        <section class="prod-1">
-            <h2>Резинэн чихэр</h2>
-            <h4>6500₮</h4>
-            <p class="info">
-                <strong>
-                    Үйлдвэрлэгч: 
-                </strong>
-                Moncake ххк
-                <br>
-                <strong>
-                    Жин: 
-                </strong>
-                    100гр
-                <br>
-                <strong>
-                    Илчлэг: 
-                </strong>
-                    425ккал
-                <br>
-                <strong>
-                    Орц найрлага: 
-                </strong>
-                    Сахар, Гурил, Нэрс
-                <br>
-                <strong>
-                    Хэрэглэх заавар
-                </strong>
-                    Шууд хэрэглэнэ
-            </p>
-            
-                <button>Авах</button>
-                <button>+</button>
-                <em>0</em>
-                <button>-</button>
-            <br>
-                <button>Сагслах</button>
-                <button>+</button>
-                <em>0</em>
-                <button>-</button>
-            <figure>
-                <img src="assets/png/product1.png" alt="pro">
-            </figure>    
-        </section>
-        <section class="prod-2">
-            <h2>Резинэн чихэр</h2>
-            <h4>6500₮</h4>
-            <p class="info">
-                <strong>
-                    Үйлдвэрлэгч: 
-                </strong>
-                Moncake ххк
-                <br>
-                <strong>
-                    Жин: 
-                </strong>
-                    100гр
-                <br>
-                <strong>
-                    Илчлэг: 
-                </strong>
-                    425ккал
-                <br>
-                <strong>
-                    Орц найрлага: 
-                </strong>
-                    Сахар, Гурил, Нэрс
-                <br>
-                <strong>
-                    Хэрэглэх заавар
-                </strong>
-                    Шууд хэрэглэнэ
-            </p>
-            
-                <button>Авах</button>
-                <button>+</button>
-                <em>0</em>
-                <button>-</button>
-            <br>
-                <button>Сагслах</button>
-                <button>+</button>
-                <em>0</em>
-                <button>-</button>
-            <figure>
-                <img src="assets/png/product1.png" alt="pro">
-            </figure>    
-        </section>
-        <section class="prod-3">
-            <h2>Резинэн чихэр</h2>
-            <h4>6500₮</h4>
-            <p class="info">
-                <strong>
-                    Үйлдвэрлэгч: 
-                </strong>
-                Moncake ххк
-                <br>
-                <strong>
-                    Жин: 
-                </strong>
-                    100гр
-                <br>
-                <strong>
-                    Илчлэг: 
-                </strong>
-                    425ккал
-                <br>
-                <strong>
-                    Орц найрлага: 
-                </strong>
-                    Сахар, Гурил, Нэрс
-                <br>
-                <strong>
-                    Хэрэглэх заавар
-                </strong>
-                    Шууд хэрэглэнэ
-            </p>
-            
-                <button>Авах</button>
-                <button>+</button>
-                <em>0</em>
-                <button>-</button>
-            <br>
-                <button>Сагслах</button>
-                <button>+</button>
-                <em>0</em>
-                <button>-</button>
-            <figure>
-                <img src="assets/png/product1.png" alt="pro">
-            </figure>    
-        </section>
-        <section class="prod-4">
-            <h2>Резинэн чихэр</h2>
-            <h4>6500₮</h4>
-            <p class="info">
-                <strong>
-                    Үйлдвэрлэгч: 
-                </strong>
-                Moncake ххк
-                <br>
-                <strong>
-                    Жин: 
-                </strong>
-                    100гр
-                <br>
-                <strong>
-                    Илчлэг: 
-                </strong>
-                    425ккал
-                <br>
-                <strong>
-                    Орц найрлага: 
-                </strong>
-                    Сахар, Гурил, Нэрс
-                <br>
-                <strong>
-                    Хэрэглэх заавар
-                </strong>
-                    Шууд хэрэглэнэ
-            </p>
-            
-                <button>Авах</button>
-                <button>+</button>
-                <em>0</em>
-                <button>-</button>
-            <br>
-                <button>Сагслах</button>
-                <button>+</button>
-                <em>0</em>
-                <button>-</button>
-            <figure>
-                <img src="assets/png/product1.png" alt="pro">
-            </figure>    
-        </section>
-    </div>
-    
-</body>
+    <select id="filterType">
+        <option value="">All Types</option>
+        <option value="food">Food</option>
+        <option value="drink">Drink</option>
+      </select>
+      
+      <select id="filterPrice">
+        <option value="">All Prices</option>
+        <option value="0-3000">0₮ - 3000₮</option>
+        <option value="3001-6000">3001₮ - 6000₮</option>
+        <option value="6001-9000">6001₮ - 9000₮</option>
+        <!-- Add more price ranges as needed -->
+      </select>   
+      <button id="filterButton">Filter</button>
 
+    <section class="promotion">
+        <h2>Бүтээгдэхүүн</h2>
+        <div class="products", id="Products">
+    
+        </div>
+
+    </section>
+    <section id="detailedInformation">
+            <!-- End barani delgerngui orh ystoi -->
+    </section>
+
+    <!-- End sagsni code -->
+    <div class="backDrop"></div>
+<!--Хажуугаас гарж ирэх сагс-->
+<aside id="sideBasket" class="sideBasket">
+    <section class="basketContent">
+        <header class="basketHeader">
+            <img src="assets/svg/basket.svg" alt="" style="width: 30px">
+            <section class="headerTitle">
+                <h2>Таны сагс</h2>
+                <span id="itemNum">10</span>
+            </section>
+            <div class="removeItem">
+                <span id="btnClose" class="btnClose">&times;</span>
+            </div>
+        </header>
+        <main class="basketScroll" id="basketItems">
+            <!--Эхний бараа-->
+            <div class="basketItem">
+                <div class="itemDetails">
+                    <img src="assets/png/product2.png" alt="Bingsu">
+                    <article >
+                        <h3>Бингсү</h3>
+                        <p><span>5</span> x <span class="nogoon">7500₮</span></p>
+                    </article>
+                </div>
+                <div class="removeItem">&times;</div>
+            </div>
+
+            
+            
+        </main>
+        <div class="basketActions">
+            <section class="total">
+                <h3>Нийт үнэ:</h3>
+                <h3><span class="totalPrice" id="totalPrice">47500</span>₮</h3>
+            </section>
+            <button>Төлбөр төлөх</button>
+        </div>
+    </section>
+</aside> 
+    <footer>
+        <a href="Home.html"><img src="assets/svg/CUMongolia.svg" alt="CuHome"></a>
+        <section>
+        <h4>Холбоо барих</h4>
+        <address>Хаяг: Монгол улс, Улаанбаатар хот, Хан уул дүүрэг, 10-р хороо, Хэт төв, Их монгол улсын гудамж 55, Хан уул CU салбар</address>
+        <p>Утасны дугаар: <a href="tel:90302520">90302520</a>.</p>
+        <ul>
+            <li><a href="https://www.facebook.com/"><img src="assets/svg/facebook.svg" alt="facebook"></a></li>
+            <li><a href="https://www.twitter.com/"><img src="assets/svg/twitter.svg" alt="twitter"></a></li>
+            <li><a href="https://www.linkedin.com/"><img src="assets/svg/linkedin.svg" alt="linkedin"></a></li>
+            <li><a href="https://www.dribbble.com/"><img src="assets/svg/dribbble.svg" alt="dribbble"></a></li>
+        </ul>
+        </section>
+        <section>
+            <h5>Copyright ©2023 CU Mongolia</h5>
+            <p>“Team TYK” ххк</p>
+        </section>
+    </footer>
+</body>
 </html>

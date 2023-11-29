@@ -20,25 +20,9 @@ function plusSlides(n) {
     showSlide();
 }
 
-// Sample data for promotion products
-const promotionData = [
-  {  name: 'Chocoo melon', description: 'Double choco melon pan 100гр',  Price: '2750₮', image: 'product5.png',discount: '50%',discountingPrice: '5500₮',manufacturer:'apu',weight:'100oгр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne',More:'0' },
-  {  name: 'Coffee cream pan', description: 'Coffee cream pan 100гр', Price: '55000₮', image: 'product6.png',discount: '1+1',discountingPrice:'',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne',More:'1'},
-  { name: 'Мөстэй американо', description: 'CU 120гр', Price: '3150₮', image: 'Product7.png', discount: '30%', discountingPrice: '4500₮',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne',More:'2'},
-  { name: 'Алаг донат', description: 'CU 80гр',Price:'3150',image: 'product8.png',discount: '1+1',discountedPrice: '3500₮',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne',More:'3'}
-];
-const productData = [
-  {  name: 'Choco melon', description: 'Double choco melon pan 100гр',  Price: '2750₮', image: 'product5.png',discount: '50%',discountingPrice: '5500₮' ,manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne',More:'4'},
-  {  name: 'Coffee cream pan', description: 'Coffee cream pan 100гр', Price: '5500₮', image: 'product6.png',discount: '1+1',discountingPrice:'',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne',More:'5'},
-  { name: 'Мөстэй американо', description: 'CU 120гр', Price: '3150₮', image: 'Product7.png', discount: '30%', discountingPrice: '4500₮' ,manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne',More:'6' },
-  { name: 'Алаг донат', description: 'CU 80гр', discountedPrice: '3500₮', image: 'product8.png',discount: '1+1',discountingPRice:'',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne',More:'7'  },
-  {  name: 'Choco melon', description: 'Double choco melon pan 100гр',  Price: '2750₮', image: 'product5.png',discount: '50%',discountingPrice: '5500₮',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne',More:'8'  },
-  {  name: 'Coffee cream pan', description: 'Coffee cream pan 100гр', Price: '5500₮', image: 'product6.png',discount: '1+1' ,discountingPrice:'',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne',More:'9' },
-  { name: 'Мөстэй американо', description: 'CU 120гр', Price: '3150₮', image: 'Product7.png', discount: '30%', discountingPrice: '4500₮',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne',More:'10' },
-  { name: 'Алаг донат', description: 'CU 80гр', discountedPrice: '3500₮', image: 'product8.png',discount: '1+1',discountingPrice:'',manufacturer:'apu',weight:'100гр',expiration:'unuudur',ingredients:'uzem talh',instructions:'unuuudur',storage:'udurtu herglne' ,More:'11' }
-];
+
 class Product {
-  constructor(name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage, More) {
+  constructor(name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage, More,type) {
     this.discount = discount || null;
     this.name = name;
     this.description = description;
@@ -53,6 +37,7 @@ class Product {
     this.instructions = instructions;
     this.storage = storage;
     this.More = More;
+    this.type = type||null;
   }
 
   generateHTML() {
@@ -60,7 +45,7 @@ class Product {
           <article class="product" >
           `;
             
-            if (this.discount != null) {
+            if (this.discount != "") {
                 html += `<span>${this.discount}</span>`;
               }
             html += `
@@ -72,7 +57,7 @@ class Product {
             
             `;
       
-        if (this.discountingPrice != null) {
+        if (this.discountingPrice != "") {
           html += `<p class="discount">${this.discountingPrice}</p>`;
         }
       
@@ -120,29 +105,93 @@ class Product {
     
   }
 }
-
 document.addEventListener('DOMContentLoaded', function () {
-  const promotionProductsContainer = document.getElementById('promotionProducts');
-    promotionData.forEach(productInfo => {
-    const product = new Product(...Object.values(productInfo));
-    promotionProductsContainer.insertAdjacentHTML('beforeend', product.generateHTML());
-  });
-  const normalProductsContainer = document.getElementById('normalProducts');
-  productData.forEach(productInfo => {
-    const product = new Product(...Object.values(productInfo));
-    normalProductsContainer.insertAdjacentHTML('beforeend', product.generateHTML());
-  });
-  document.addEventListener('click',function(event){
-      if(event.target.classList.contains('popup-button')){
-        const productId=event.target.id;
-        openPopup(productId);
-      }
-  });
-  document.addEventListener('click',function(event){
-      if(event.target.classList.contains('close-popup')){        
-        ClosePopup();
-      }
-  })
+  fetch('data.json')
+      .then(response => response.json())
+      .then(data => {
+
+          const promotionProductsContainer = document.getElementById('promotionProducts');
+          data.promotionData.forEach(productInfo => {
+              const product = new Product(...Object.values(productInfo));
+              promotionProductsContainer.insertAdjacentHTML('beforeend', product.generateHTML());
+          });
+          document.addEventListener('click', function (event) {
+              if (event.target.classList.contains('popup-button')) {
+                  const productId = event.target.id;
+                  openPopup(productId);
+              }
+          });
+
+          document.addEventListener('click', function (event) {
+              if (event.target.classList.contains('close-popup')) {
+                  ClosePopup();
+              }
+          });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+});
+document.addEventListener('DOMContentLoaded', function () {
+  fetch('data.json')
+      .then(response => response.json())
+      .then(data => {
+        const normalProductsContainer = document.getElementById('normalProducts');
+        data.productData.forEach(productInfo => {
+            const product = new Product(...Object.values(productInfo));
+            normalProductsContainer.insertAdjacentHTML('beforeend', product.generateHTML());
+        });
+          document.addEventListener('click', function (event) {
+              if (event.target.classList.contains('popup-button')) {
+                  const productId = event.target.id;
+                  openPopup(productId);
+              }
+          });
+
+          document.addEventListener('click', function (event) {
+              if (event.target.classList.contains('close-popup')) {
+                  ClosePopup();
+              }
+          });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+});
+document.addEventListener('DOMContentLoaded', function () {
+  fetch('data.json')
+    .then(response => response.json())
+    .then(data => {
+      const ProductsContainer = document.getElementById('Products');
+      const typeFilter = document.getElementById('filterType');
+      const priceFilter = document.getElementById('filterPrice');
+      const filterButton = document.getElementById('filterButton'); 
+      data.productDatas.forEach(productInfo => {
+        const product = new Product(...Object.values(productInfo));
+
+        const typeMatches = typeFilter.value === '' || product.type === typeFilter.value;
+        const priceMatches =
+          priceFilter.value === '' ||
+          (product.Price && parseInt(product.Price) >= parseInt(priceFilter.value.split('-')[0]) &&
+            parseInt(product.Price) <= parseInt(priceFilter.value.split('-')[1]));
+
+        if (typeMatches && priceMatches) {
+          ProductsContainer.insertAdjacentHTML('beforeend', product.generateHTML());
+        }
+      });
+
+      document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('popup-button')) {
+          const productId = event.target.id;
+          openPopup(productId);
+        }
+      });
+
+      document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('close-popup')) {
+          ClosePopup();
+        }
+      });
+      filterButton.addEventListener('click', filterProducts);
+    })
+    
+    .catch(error => console.error('Error fetching data:', error));
 });
   function openPopup(productId){
     const popup=document.querySelector(`.productGet[data-id="${productId}"]`);
