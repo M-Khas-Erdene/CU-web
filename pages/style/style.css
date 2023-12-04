@@ -252,7 +252,7 @@ footer p{
       flex-direction:column;
   }
   .productGet figure img{
-
+      
       border:2px solid #D9ABFD;
       padding:5px;
       border-radius:5px;
@@ -260,7 +260,9 @@ footer p{
       width:400;
   }
   .productGet figure span{
- 
+    position:relative;
+    left:-128px;
+    top:22px;
     background-color: #FF0000; 
     padding-left: 15px;
     padding-right: 15px;
@@ -573,6 +575,11 @@ footer p{
         height:auto;
         border:5px solid #D9ABFD;
     }
+    .productGet figure span{
+        position:relative;
+        left:0;
+        top:20px;
+      }
 }
 /*hemjee zaah*/
 @media (max-width: 550px) {
