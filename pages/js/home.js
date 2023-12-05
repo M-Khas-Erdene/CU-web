@@ -159,45 +159,68 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .catch(error => console.error('Error fetching data:', error));
 });
+
+
+
+
+
+
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
-  fetch('data.json')
-    .then(response => response.json())
-    .then(data => {
-      const ProductsContainer = document.getElementById('Products');
-      const typeFilter = document.getElementById('filterType');
-      const priceFilter = document.getElementById('filterPrice');
-      const filterButton = document.getElementById('filterButton'); 
-      data.productDatas.forEach(productInfo => {
-        const product = new Product(...Object.values(productInfo));
+  document.getElementById('filterButton').addEventListener('click', function () {
+    const selectedType = document.getElementById('filterType').value;
+    const selectedPrice = document.getElementById('filterPrice').value;
 
-        const typeMatches = typeFilter.value === '' || product.type === typeFilter.value;
-        const priceMatches =
-          priceFilter.value === '' ||
-          (product.Price && parseInt(product.Price) >= parseInt(priceFilter.value.split('-')[0]) &&
-            parseInt(product.Price) <= parseInt(priceFilter.value.split('-')[1]));
+    fetch('data.json')
+      .then(response => response.json())
+      .then(data => {
+        const ProductsContainer = document.getElementById('Products');
+        ProductsContainer.innerHTML = ''; // Clear previous content
 
-        if (typeMatches && priceMatches) {
-          ProductsContainer.insertAdjacentHTML('beforeend', product.generateHTML());
-        }
-      });
-
-      document.addEventListener('click', function (event) {
-        if (event.target.classList.contains('popup-button')) {
-          const productId = event.target.id;
-          openPopup(productId);
-        }
-      });
-
-      document.addEventListener('click', function (event) {
-        if (event.target.classList.contains('close-popup')) {
-          ClosePopup();
-        }
-      });
-      filterButton.addEventListener('click', filterProducts);
-    })
-    
-    .catch(error => console.error('Error fetching data:', error));
+        data.productDatas
+          .filter(({ type, Price }) =>
+            (selectedType === '' || type === selectedType) &&
+            (selectedPrice === '' || (Price !== undefined && isPriceInRange(parseInt(Price.replace('₮', '')), selectedPrice)))
+          ) // Filter based on selectedType and selectedPrice
+          .forEach(productInfo => {
+            const product = new Product(...Object.values(productInfo));
+            ProductsContainer.insertAdjacentHTML('beforeend', product.generateHTML());
+          });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  });
 });
+
+// Helper function to check if the price is in the selected range
+function isPriceInRange(productPrice, selectedPriceRange) {
+  if (selectedPriceRange === '') {
+    return true; // If "All Prices" is selected, don't filter by price
+  }
+  const [min, max] = selectedPriceRange.split('-').map(Number);
+  return productPrice >= min && productPrice <= max;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function openPopup(productId){
     const popup=document.querySelector(`.productGet[data-id="${productId}"]`);
     if(popup){
@@ -212,11 +235,6 @@ document.addEventListener('DOMContentLoaded', function () {
       backdrop.classList.remove('show');
     }
   }
-
-
-
-  
-
 
   document.addEventListener("DOMContentLoaded", function () {
         const carousel = document.querySelector(".carousel");
