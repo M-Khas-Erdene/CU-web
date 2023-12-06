@@ -72,8 +72,11 @@ class Product {
         <div class="productExit">
             <span class="close-popup">&times;</span>
         </div>
-        <figure>
-        <figcaption><span>${this.discount}</span></figcaption>
+        <figure>`
+        if(this.discountingPrice != ""){
+          html+=`<figcaption><span>${this.discount}</span></figcaption>`;
+        }html+=`
+        
         <img src="assets/png/${this.image}" alt="">
          
         </figure>
