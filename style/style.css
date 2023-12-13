@@ -643,6 +643,7 @@ footer img{
 }
 /*bugdiig harah*/
 .promotionButton {
+    text-decoration:none;
     display: block; 
     margin: 0 auto; 
     width: 200px;
@@ -652,6 +653,7 @@ footer img{
     color: #FFFFFF; 
     padding: 12px;
     margin-top: 42px; 
+    
 }
 /*hyamdraliin medeelel*/
 .product span {
@@ -707,7 +709,7 @@ footer img{
 
 }
 /*garchig*/
-.Service h2, .promotion h2{
+.Service h2, .promotion h2, .searchH2{
     text-align: center;
     font-weight: bold;
     color: #8101CF;

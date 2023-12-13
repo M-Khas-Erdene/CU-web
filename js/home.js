@@ -358,3 +358,73 @@ function closeBasket(){
 }
 
 
+
+
+let jsonData;
+
+document.addEventListener('DOMContentLoaded', async function () {
+  jsonData = await fetch('data.json').then(response => response.json());
+
+});
+
+function searchProducts() {
+  if (!jsonData) {
+    console.error('jsonData is not defined.');
+    return;
+  }
+  const searchInput = document.getElementById('searchInput').value.toLowerCase();
+  const searchResults = document.getElementById('searchResults');
+  const searchHeading = document.getElementById('searchH2');
+  searchHeading.textContent = 'Хайлтын илэрц';
+  searchResults.innerHTML = '';
+  const filteredProducts = jsonData.productDatas.filter(product => {
+    return product.name.toLowerCase().includes(searchInput);
+  });
+
+  searchResults.className = 'products';
+  searchResults.style.marginLeft = '10%';
+  searchResults.style.marginRight = '10%'; 
+
+
+
+  const filteredProductElements = filteredProducts.map(productInfo => {
+    const product = new Product(...Object.values(productInfo));
+    return product.generateHTML();
+  });
+  searchResults.innerHTML = filteredProductElements.join('');
+}
+
+
+
+
+function searchProductsHome() {
+  if (!jsonData) {
+    console.error('jsonData is not defined.');
+    return;
+  }
+
+  const searchInput = document.getElementById('searchInput').value.toLowerCase();
+  const searchResults = document.getElementById('searchResultsHome');
+  const searchHeading = document.getElementById('searchH2');
+  searchHeading.textContent = 'Хайлтын илэрц';
+  searchResults.innerHTML = '';
+  const filteredPromotionProducts = jsonData.promotionData.filter(product => {
+    return product.name.toLowerCase().includes(searchInput);
+  });
+
+  const filteredProductData = jsonData.productData.filter(product => {
+    return product.name.toLowerCase().includes(searchInput);
+  });
+
+  const filteredProducts = [...filteredPromotionProducts, ...filteredProductData];
+  searchResults.className = 'products';
+  searchResults.style.marginLeft = '10%';
+  searchResults.style.marginRight = '10%';
+  searchResults.style.marginBottom = '20px';
+  const filteredProductElements = filteredProducts.map(productInfo => {
+    const product = new Product(...Object.values(productInfo));
+    return product.generateHTML();
+  });
+
+  searchResults.innerHTML = filteredProductElements.join('');
+}
