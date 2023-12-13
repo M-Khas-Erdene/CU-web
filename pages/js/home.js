@@ -49,7 +49,7 @@ class Product {
                 html += `<span>${this.discount}</span>`;
               }
             html += `
-            <div id='${this.More}'>
+            <div >
               <img src="assets/png/${this.image}" alt="${this.name}">
               <h3>${this.name}</h3>
             </div>
@@ -63,7 +63,7 @@ class Product {
       
         html += `
             <strong>${this.Price}</strong>
-            <button class="popup-button" id="${this.More}">Үзэх</button>
+              <button class="popup-button" id="${this.More}">Үзэх</button>
           </article>
         `
         ;
@@ -95,74 +95,82 @@ class Product {
                 <p>Хадгалах горим:${this.storage}</p>
             </div>
             <div class="buttons">
-                <div class="b-favouriteProduct"><button class="b">авах</button>
-                <button class="favouriteProduct"><i class="fa fa-heart" class="fa fa-heart" aria-hidden="true"></i></button></div>
-                <div class="b-productAdd"> <button class="b">Сагслах</button>
+                <div class="b-productAdd"> 
+                <button class="b">Сагслах</button>
                 <div class="productAdd">
                     <button>+</button>
                     <button>0</button>
                     <button>-</button>
-                </div></div>
+                </div>
+                </div>
             </div>
         </article>
        
     </div>`
-        return html
-
-  
-    
+        return html 
   }
+  generateBasket(){
+    html=`<div class="basketItem">
+    <div class="itemDetails">
+        <img src="assets/png/product2.png" alt="Bingsu">
+        <article >
+            <h3>Бингсү</h3>
+            <p><span>5</span> x <span class="nogoon">7500₮</span></p>
+        </article>
+    </div>
+    <div class="removeItem">&times;</div>
+</div>`
+    return html
+  }
+
+
 }
-document.addEventListener('DOMContentLoaded', function () {
-  fetch('data.json')
-      .then(response => response.json())
-      .then(data => {
 
-          const promotionProductsContainer = document.getElementById('promotionProducts');
-          data.promotionData.forEach(productInfo => {
-              const product = new Product(...Object.values(productInfo));
-              promotionProductsContainer.insertAdjacentHTML('beforeend', product.generateHTML());
-          });
-          document.addEventListener('click', function (event) {
-              if (event.target.classList.contains('popup-button')) {
-                  const productId = event.target.id;
-                  openPopup(productId);
-              }
-          });
 
-          document.addEventListener('click', function (event) {
-              if (event.target.classList.contains('close-popup')) {
-                  ClosePopup();
-              }
-          });
-      })
-      .catch(error => console.error('Error fetching data:', error));
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', async function () {
+  try {
+    const [promotionData, productData] = await Promise.all([
+      fetch('data.json').then(response => response.json()),
+      fetch('data.json').then(response => response.json())
+    ]);
+
+    const promotionProductsContainer = document.getElementById('promotionProducts');
+    promotionProductsContainer.innerHTML = promotionData.promotionData.map(productInfo => {
+      const product = new Product(...Object.values(productInfo));
+      return product.generateHTML();
+    }).join('');
+
+    const normalProductsContainer = document.getElementById('normalProducts');
+    normalProductsContainer.innerHTML = productData.productData.map(productInfo => {
+      const product = new Product(...Object.values(productInfo));
+      return product.generateHTML();
+    }).join('');
+
+    document.addEventListener('click', function (event) {
+      if (event.target.classList.contains('popup-button')) {
+        const productId = event.target.id;
+        openPopup(productId);
+      }
+    });
+
+    document.addEventListener('click', function (event) {
+      if (event.target.classList.contains('close-popup')) {
+        ClosePopup();
+      }
+    });
+
+    addProductEventListeners(promotionProductsContainer);
+    addProductEventListeners(normalProductsContainer);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 });
-document.addEventListener('DOMContentLoaded', function () {
-  fetch('data.json')
-      .then(response => response.json())
-      .then(data => {
-        const normalProductsContainer = document.getElementById('normalProducts');
-        data.productData.forEach(productInfo => {
-            const product = new Product(...Object.values(productInfo));
-            normalProductsContainer.insertAdjacentHTML('beforeend', product.generateHTML());
-        });
-          document.addEventListener('click', function (event) {
-              if (event.target.classList.contains('popup-button')) {
-                  const productId = event.target.id;
-                  openPopup(productId);
-              }
-          });
-
-          document.addEventListener('click', function (event) {
-              if (event.target.classList.contains('close-popup')) {
-                  ClosePopup();
-              }
-          });
-      })
-      .catch(error => console.error('Error fetching data:', error));
-});
-
 
 
 
@@ -185,19 +193,78 @@ document.addEventListener('DOMContentLoaded', function () {
         const ProductsContainer = document.getElementById('Products');
         ProductsContainer.innerHTML = ''; // Clear previous content
 
-        data.productDatas
+        const filteredProductsHTML = data.productDatas
           .filter(({ type, Price }) =>
             (selectedType === '' || type === selectedType) &&
             (selectedPrice === '' || (Price !== undefined && isPriceInRange(parseInt(Price.replace('₮', '')), selectedPrice)))
           ) // Filter based on selectedType and selectedPrice
-          .forEach(productInfo => {
+          .map(productInfo => {
             const product = new Product(...Object.values(productInfo));
-            ProductsContainer.insertAdjacentHTML('beforeend', product.generateHTML());
-          });
+            return product.generateHTML();
+          })
+          .join('');
+
+        ProductsContainer.insertAdjacentHTML('beforeend', filteredProductsHTML);
+
+        addProductEventListeners(ProductsContainer);
+
+        document.addEventListener('click', function (event) {
+          if (event.target.classList.contains('popup-button')) {
+            const productId = event.target.id;
+            openPopup(productId);
+          }
+        });
+
+        document.addEventListener('click', function (event) {
+          if (event.target.classList.contains('close-popup')) {
+            ClosePopup();
+          }
+        });
       })
       .catch(error => console.error('Error fetching data:', error));
   });
+
+  // Initial load without clicking the filter button
+  fetch('data.json')
+    .then(response => response.json())
+    .then(data => {
+      const ProductsContainer = document.getElementById('Products');
+
+      const allProductsHTML = data.productDatas.map(productInfo => {
+          const product = new Product(...Object.values(productInfo));
+          return product.generateHTML();
+        })
+        .join('');
+
+      ProductsContainer.insertAdjacentHTML('beforeend', allProductsHTML);
+
+      addProductEventListeners(ProductsContainer);
+
+      document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('popup-button')) {
+          const productId = event.target.id;
+          openPopup(productId);
+        }
+      });
+
+      document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('close-popup')) {
+          ClosePopup();
+        }
+      });
+    })
+    .catch(error => console.error('Error fetching data:', error));
 });
+
+function addProductEventListeners(container) {
+  // Add event listeners for the products in the given container
+  container.querySelectorAll('.b').forEach(button => {
+    button.addEventListener('click', function (event) {
+      // Your logic for handling '.b' class clicks
+    });
+  });
+}
+
 
 // Helper function to check if the price is in the selected range
 function isPriceInRange(productPrice, selectedPriceRange) {
@@ -265,6 +332,11 @@ function isPriceInRange(productPrice, selectedPriceRange) {
         document.querySelector(".nex").addEventListener("click", nextImage);
         document.querySelector(".pre").addEventListener("click", prevImage);
     });
+//sagsand baraa hiih code 
+
+
+
+
 
 // sagsni neegdej haagdah code
 const openBtn=document.getElementById('openBasketBtn');

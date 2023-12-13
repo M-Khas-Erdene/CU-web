@@ -110,22 +110,35 @@ input[type="checkbox"]{
 }
 
 footer {
-    background-color: #A635EC;
-    color: white;
+    display:flex;
+    flex-direction:row;
+    background-color: #FFFFFF;
+    color: #000;
     text-align: center;
     padding: 20px 0;
     margin-top: 20px;
+    margin-bottom:0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-left:10%;
+    margin-right:10%;
 }
 footer ul{
-    display: flex;
-    justify-content: center;
-
+    display:flex;
+    justify-content:center;
 }
 footer ul li{
-    padding: 10px;
+    padding: 0;
 }
 footer p{
     padding: 10px;
+}
+footer .footerFlex{
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    justify-content: space-between;
+}
+footer img{
+    margin:10px;
 }
 /*nuuren zurag*/
 
@@ -160,7 +173,6 @@ footer p{
 .promotion, .Service,.suggest{
     margin-right: 10%;
     margin-left: 10%;
-
 }   
 /*buteegdehuunii undsen class herev hemjeenees hetervel ... haragduulna*/
 .product{
@@ -185,7 +197,6 @@ footer p{
     grid-column-gap: 30px;
     grid-row-gap: 42px;
     margin-top: 57px;
-    
 }
 /* buteegdehuunii delgerengui medeelel */
   .productExit{
@@ -471,6 +482,34 @@ footer p{
 .basketScroll::-webkit-scrollbar{
     width: 0;
 }
+
+/* filterin style */
+#filterType,#filterPrice,#filterButton{
+    color:#FFFFFF;
+    font-weight:bold;
+    background-color:#3FDA26;
+    border:none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding:5px;
+    border-radius:5px;
+    outline:none;
+    margin-top:10px;
+}
+.filters{
+    margin-left:10%;
+}
+#filterButton:hover{
+   background-color:#FFFFFF;
+   color:#3FDA26;
+}
+#filterPrice:hover{
+    background-color:#FFFFFF;
+    color:#3FDA26; 
+}
+#filterType:hover{
+    background-color:#FFFFFF;
+   color:#3FDA26;
+}
 /*hemjee zaah*/
 @media (max-width: 1120px) {
     nav{
@@ -558,6 +597,14 @@ footer p{
     }
     .suggest h3 {
         font-size: 28px;
+    }
+    footer{
+        display:flex;
+        flex-direction:column;
+    }
+    footer .footerFlex{
+        display:flex;
+        flex-direction:column;
     }
     .productGet{
         display: flex;
