@@ -98,9 +98,9 @@ class Product {
                 <div class="b-productAdd"> 
                 <button class="b">Сагслах</button>
                 <div class="productAdd">
-                    <button>+</button>
-                    <button>0</button>
-                    <button>-</button>
+                    <button onclick="updateCounter('increment',1)">+</button>
+                    <p id="basketCount${this.More}">0</p>
+                    <button onclick="updateCounter('decrement',1)">-</button>
                 </div>
                 </div>
             </div>
@@ -125,8 +125,16 @@ class Product {
 
 
 }
-
-
+var counter=0;
+function updateCounter(action,productId){
+  var counterElement=documnet.getElementById(productId);
+  if(action === 'increment'){
+    counter++;
+  }else if(action === 'decrement' && counter>0){
+    counter--;
+  }
+  counterElement.innerText=counter;
+}
 
 
 
@@ -156,30 +164,21 @@ document.addEventListener('DOMContentLoaded', async function () {
       if (event.target.classList.contains('popup-button')) {
         const productId = event.target.id;
         openPopup(productId);
+        productURL(productId);
       }
     });
 
     document.addEventListener('click', function (event) {
       if (event.target.classList.contains('close-popup')) {
         ClosePopup();
+        productURL('');
       }
     });
 
-    addProductEventListeners(promotionProductsContainer);
-    addProductEventListeners(normalProductsContainer);
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 });
-
-
-
-
-
-
-
-
-
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -197,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
           .filter(({ type, Price }) =>
             (selectedType === '' || type === selectedType) &&
             (selectedPrice === '' || (Price !== undefined && isPriceInRange(parseInt(Price.replace('₮', '')), selectedPrice)))
-          ) // Filter based on selectedType and selectedPrice
+          )
           .map(productInfo => {
             const product = new Product(...Object.values(productInfo));
             return product.generateHTML();
@@ -208,18 +207,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         addProductEventListeners(ProductsContainer);
 
-        document.addEventListener('click', function (event) {
-          if (event.target.classList.contains('popup-button')) {
-            const productId = event.target.id;
-            openPopup(productId);
-          }
-        });
-
-        document.addEventListener('click', function (event) {
-          if (event.target.classList.contains('close-popup')) {
-            ClosePopup();
-          }
-        });
+        // Update URL with selected parameters
+        updateURL(selectedType, selectedPrice);
       })
       .catch(error => console.error('Error fetching data:', error));
   });
@@ -231,39 +220,84 @@ document.addEventListener('DOMContentLoaded', function () {
       const ProductsContainer = document.getElementById('Products');
 
       const allProductsHTML = data.productDatas.map(productInfo => {
-          const product = new Product(...Object.values(productInfo));
-          return product.generateHTML();
-        })
-        .join('');
+        const product = new Product(...Object.values(productInfo));
+        return product.generateHTML();
+      })
+      .join('');
 
       ProductsContainer.insertAdjacentHTML('beforeend', allProductsHTML);
 
       addProductEventListeners(ProductsContainer);
 
+      // Get initial URL parameters and update the URL
+      const { selectedType, selectedPrice } = getURLParameters();
+      updateURL(selectedType, selectedPrice);
+
       document.addEventListener('click', function (event) {
         if (event.target.classList.contains('popup-button')) {
           const productId = event.target.id;
+          event.preventDefault();
           openPopup(productId);
+          productURL(productId);
+        
         }
       });
 
       document.addEventListener('click', function (event) {
         if (event.target.classList.contains('close-popup')) {
           ClosePopup();
+          productURL('');
         }
       });
     })
     .catch(error => console.error('Error fetching data:', error));
 });
 
+function updateURL(selectedType, selectedPrice) {
+  console.log('Updating URL for product:', selectedPrice);
+  const params = new URLSearchParams(window.location.search);
+
+  if (selectedType) {
+    params.set('type', selectedType);
+  } else {
+    params.delete('type');
+  }
+
+  if (selectedPrice) {
+    params.set('price', selectedPrice);
+  } else {
+    params.delete('price');
+  }
+
+  const newURL = `${window.location.pathname}?${params.toString()}`;
+
+  history.pushState({}, '', newURL);
+}
+
 function addProductEventListeners(container) {
-  // Add event listeners for the products in the given container
   container.querySelectorAll('.b').forEach(button => {
     button.addEventListener('click', function (event) {
       // Your logic for handling '.b' class clicks
     });
   });
 }
+
+function getURLParameters() {
+  const params = new URLSearchParams(window.location.search);
+  const selectedType = params.get('type') || '';
+  const selectedPrice = params.get('price') || '';
+
+  return { selectedType, selectedPrice };
+}
+
+function isPriceInRange(productPrice, selectedPriceRange) {
+  if (selectedPriceRange === '') {
+    return true;
+  }
+  const [min, max] = selectedPriceRange.split('-').map(Number);
+  return productPrice >= min && productPrice <= max;
+}
+
 
 
 // Helper function to check if the price is in the selected range
@@ -274,23 +308,6 @@ function isPriceInRange(productPrice, selectedPriceRange) {
   const [min, max] = selectedPriceRange.split('-').map(Number);
   return productPrice >= min && productPrice <= max;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   function openPopup(productId){
     const popup=document.querySelector(`.productGet[data-id="${productId}"]`);
     if(popup){
@@ -305,6 +322,21 @@ function isPriceInRange(productPrice, selectedPriceRange) {
       backdrop.classList.remove('show');
     }
   }
+function productURL(productId) {
+  console.log('Updating URL for product:', productId);
+  const params = new URLSearchParams(window.location.search.slice(1));
+
+  if (productId) {
+    params.set('product', productId);
+  } else {
+    params.delete('product');
+  }
+
+  const newURL = `${window.location.pathname}?${params.toString()}`;
+
+  // Update the URL without triggering a page reload
+  history.pushState({}, '', newURL);
+}
 
   document.addEventListener("DOMContentLoaded", function () {
         const carousel = document.querySelector(".carousel");
