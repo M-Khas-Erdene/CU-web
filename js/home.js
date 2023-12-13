@@ -459,4 +459,20 @@ function searchProductsHome() {
   });
 
   searchResults.innerHTML = filteredProductElements.join('');
+  searchURL('search', searchInput);
+}
+function searchURL(key, value) {
+  const params = new URLSearchParams(window.location.search);
+
+  // Update or add the search query to URL parameters
+  if (value) {
+    params.set(key, value);
+  } else {
+    params.delete(key);
+  }
+
+  const newURL = `${window.location.pathname}?${params.toString()}`;
+
+  // Update the URL without triggering a page reload
+  history.pushState({}, '', newURL);
 }
