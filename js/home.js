@@ -102,10 +102,10 @@ class Product {
             </div>
             <div class="buttons">
                 <div class="b-productAdd"> 
-                <button class="b">Сагслах</button>
+                <button class="b" data-element="${this.More}">Сагслах</button>
                 <div class="productAdd">
                     <button onclick="updateCounter('increment',1)">+</button>
-                    <p id="basketCount${this.More}">0</p>
+                    <p data-count="${this.More}">0</p>
                     <button onclick="updateCounter('decrement',1)">-</button>
                 </div>
                 </div>
@@ -116,31 +116,21 @@ class Product {
         return html 
   }
   generateBasket(){
-    html=`<div class="basketItem">
+  const countElement = document.querySelector(`[data-count="${this.More}"]`);
+  const count = countElement ? parseInt(countElement.textContent) : 0;
+   const html=`<div class="basketItem">
     <div class="itemDetails">
-        <img src="assets/png/product2.png" alt="Bingsu">
+        <img src="assets/png/${this.image}" alt="${this.name}">
         <article >
-            <h3>Бингсү</h3>
-            <p><span>5</span> x <span class="nogoon">7500₮</span></p>
+            <h3>${this.name}</h3>
+            <p><span class="basketCount">${count}</span> x <span class="nogoon">${this.Price}</span></p>
         </article>
     </div>
     <div class="removeItem">&times;</div>
 </div>`
     return html
   }
-
-
 }
-// var counter=0;
-// function updateCounter(action,productId){
-//   var counterElement=documnet.getElementById(productId);
-//   if(action === 'increment'){
-//     counter++;
-//   }else if(action === 'decrement' && counter>0){
-//     counter--;
-//   }
-//   counterElement.innerText=counter;
-// }
 
 
 
@@ -153,6 +143,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       fetch('data.json').then(response => response.json())
     ]);
 
+    const basketContainer = document.getElementById('basketItems');
     const promotionProductsContainer = document.getElementById('promotionProducts');
     promotionProductsContainer.innerHTML = promotionData.promotionData.map(productInfo => {
       const product = new Product(...Object.values(productInfo));
@@ -180,12 +171,58 @@ document.addEventListener('DOMContentLoaded', async function () {
       }
     });
 
+    document.addEventListener('click', function (event) {
+      if (event.target.classList.contains('b')) {
+        const productId = findProductByMore(event.target.dataset.element, promotionData.promotionData.concat(productData.productData));
+
+        // Now you have the product with the specified 'More' attribute
+        if (productId) {
+          // Do something with the product
+          basketContainer.innerHTML += new Product(...Object.values(productId)).generateBasket();
+        }
+      }
+      if (event.target.classList.contains('removeItem')) {
+        const basketItem = event.target.closest('.basketItem');
+        if (basketItem) {
+          basketItem.remove();
+        }
+      }
+    });
+    document.addEventListener('click', function (event) {
+      if (event.target.tagName === 'BUTTON' && event.target.dataset.count) {
+        const action = event.target.dataset.count === 'increment' ? 'increment' : 'decrement';
+        const moreValue = event.target.parentElement.parentElement.querySelector('.b').dataset.element;
+        updateCounter(action, moreValue);
+      }
+    });
+    
+    
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 });
+const productQuantities = {};
+function updateCounter(action, moreValue) {
+  const countElement = document.querySelector(`[data-count="${moreValue}"]`);
 
+  if (countElement) {
+    let count = parseInt(countElement.textContent);
 
+    if (action === 'increment') {
+      count++;
+    } else if (action === 'decrement' && count > 0) {
+      count--;
+    }
+
+    countElement.textContent = count;
+
+    // Update the global variable with the latest count
+    productQuantities[moreValue] = count;
+  }
+}
+function findProductByMore(moreValue, data) {
+  return data.find(product => product.More === moreValue);
+}
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('filterButton').addEventListener('click', function () {
     const selectedType = document.getElementById('filterType').value;
@@ -209,8 +246,6 @@ document.addEventListener('DOMContentLoaded', function () {
           .join('');
 
         ProductsContainer.insertAdjacentHTML('beforeend', filteredProductsHTML);
-
-        addProductEventListeners(ProductsContainer);
 
         // Update URL with selected parameters
         updateURL(selectedType, selectedPrice);
@@ -254,6 +289,7 @@ document.addEventListener('DOMContentLoaded', function () {
           productURL('');
         }
       });
+      
     })
     .catch(error => console.error('Error fetching data:', error));
 });
@@ -279,13 +315,6 @@ function updateURL(selectedType, selectedPrice) {
   history.pushState({}, '', newURL);
 }
 
-function addProductEventListeners(container) {
-  container.querySelectorAll('.b').forEach(button => {
-    button.addEventListener('click', function (event) {
-      // Your logic for handling '.b' class clicks
-    });
-  });
-}
 
 function getURLParameters() {
   const params = new URLSearchParams(window.location.search);
@@ -427,7 +456,7 @@ function searchProducts() {
   const searchInput = document.getElementById('searchInput').value.toLowerCase();
   const searchResults = document.getElementById('searchResults');
   const searchHeading = document.getElementById('searchH2');
-      searchHeading.textContent='Хайлтын илэрц';
+  searchHeading.textContent='Хайлтын илэрц';
   
   searchResults.innerHTML = '';
   const filteredProducts = jsonData.productDatas.filter(product => {
@@ -465,7 +494,7 @@ function searchProductsHome() {
   const searchInput = document.getElementById('searchInput').value.toLowerCase();
   const searchResults = document.getElementById('searchResultsHome');
   const searchHeading = document.getElementById('searchH2');
-  searchHeading.textContent = 'Хайлтын илэрц';
+  searchHeading.textContent='Хайлтын илэрц';
   searchResults.innerHTML = '';
   const filteredPromotionProducts = jsonData.promotionData.filter(product => {
     return product.name.toLowerCase().includes(searchInput);
