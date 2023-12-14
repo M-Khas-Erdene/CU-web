@@ -401,8 +401,23 @@ let jsonData;
 
 document.addEventListener('DOMContentLoaded', async function () {
   jsonData = await fetch('data.json').then(response => response.json());
-
+  const {search}=getURLSearchParameters();
+  if (search !== null && search !== undefined && search !== '') {
+    document.getElementById('searchInput').value = search;
+  }
+  searchProductsHome();
 });
+document.addEventListener('DOMContentLoaded', async function () {
+  jsonData = await fetch('data.json').then(response => response.json());
+  const {search}=getURLSearchParameters();
+  if (search !== null && search !== undefined && search !== '') {
+    document.getElementById('searchInput').value = search;
+  }
+ 
+  searchProducts();
+ 
+});
+
 
 function searchProducts() {
   if (!jsonData) {
@@ -412,7 +427,8 @@ function searchProducts() {
   const searchInput = document.getElementById('searchInput').value.toLowerCase();
   const searchResults = document.getElementById('searchResults');
   const searchHeading = document.getElementById('searchH2');
-  searchHeading.textContent = 'Хайлтын илэрц';
+      searchHeading.textContent='Хайлтын илэрц';
+  
   searchResults.innerHTML = '';
   const filteredProducts = jsonData.productDatas.filter(product => {
     return product.name.toLowerCase().includes(searchInput);
@@ -428,7 +444,13 @@ function searchProducts() {
     const product = new Product(...Object.values(productInfo));
     return product.generateHTML();
   });
-  searchResults.innerHTML = filteredProductElements.join('');
+  if(searchInput != ""){
+    searchResults.innerHTML = filteredProductElements.join('');
+  } else{
+    searchResults.innerHTML='';
+    searchHeading.textContent='';
+  }
+  searchURL('search',searchInput);
 }
 
 
@@ -463,7 +485,12 @@ function searchProductsHome() {
     return product.generateHTML();
   });
 
-  searchResults.innerHTML = filteredProductElements.join('');
+  if(searchInput != ""){
+    searchResults.innerHTML = filteredProductElements.join('');
+  } else{
+    searchResults.innerHTML='';
+    searchHeading.textContent='';
+  }
   searchURL('search', searchInput);
 }
 function searchURL(key, value) {
@@ -480,6 +507,12 @@ function searchURL(key, value) {
 
   // Update the URL without triggering a page reload
   history.pushState({}, '', newURL);
+}
+function getURLSearchParameters(){
+  const params = new URLSearchParams(window.location.search);
+  const search = params.get('search') || '';
+
+  return { search };
 }
 
 
