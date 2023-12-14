@@ -185,6 +185,15 @@ footer img{
     position: relative;
     
 }
+.product:hover, .promotionButton:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+  }
+  
+  .productGet:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+  }
 /*buteegdehuunii zurag*/
 .product img{ 
     width: 100%;
@@ -718,28 +727,34 @@ footer img{
     color: #8101CF;
     font-size: 48px;
     font-weight: bold;
+    padding-top: 20px;
 }
 /*service scroll, center*/
-.Service{
-    margin-top: 20px;
-    width: 80%;
+.Service {
     overflow: hidden;
-}
-/* uilchilgeenii zurag hemjee */
-.Service img{
-    padding: 20px;
-    width: 100%;
-    height: auto;  
-     object-fit: cover;
-}
-.carousel{
+    position: relative;
+  }
+  
+  .Service .carousel {
     display: flex;
-    transition: transform 0.5s ease;
-    
-}
-.Service button {
-    cursor: pointer; /* Add cursor: pointer to indicate that the buttons are clickable */
-}
+    animation: slideAnimation 15s linear infinite; /* Adjust the duration as needed */
+  }
+  
+  .Service img {
+    width: 120px; /* Set your actual image width */
+    height: auto;
+  }
+  
+  /* Keyframes for the straight slide animation */
+  @keyframes slideAnimation {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
 .slideshow-container {
     position: relative;
     max-width: 100%;
@@ -771,7 +786,11 @@ footer img{
 .frontImage{
     width: 100%;
     height: auto;
+    transition: opacity 0.5s ease-in-out;
 }
-
+.slideshow-container:hover .prev,
+.slideshow-container:hover .next {
+  display: block;
+}
 
 

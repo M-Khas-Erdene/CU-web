@@ -1,24 +1,30 @@
 
 let currentSlide = 0;
 const slides = [
-    "assets/png/frontImage1.png",
-    "assets/png/frontImage2.png",
-    "assets/png/frontImage3.png",
+  "assets/png/frontImage1.png",
+  "assets/png/frontImage2.png",
+  "assets/png/frontImage3.png",
 ];
 
 function showSlide() {
-    document.getElementById("slideshow").src = slides[currentSlide];
+  const slideshowImage = document.getElementById("slideshow");
+  slideshowImage.style.opacity = 0; 
+  setTimeout(() => {
+    slideshowImage.src = slides[currentSlide];
+    slideshowImage.style.opacity = 1; 
+  }, 500); 
 }
 
 function plusSlides(n) {
-    currentSlide += n;
-    if (currentSlide < 0) {
-        currentSlide = slides.length - 1;
-    } else if (currentSlide >= slides.length) {
-        currentSlide = 0;
-    }
-    showSlide();
+  currentSlide += n;
+  if (currentSlide < 0) {
+    currentSlide = slides.length - 1;
+  } else if (currentSlide >= slides.length) {
+    currentSlide = 0;
+  }
+  showSlide();
 }
+
 
 
 class Product {
@@ -125,17 +131,16 @@ class Product {
 
 
 }
-var counter=0;
-function updateCounter(action,productId){
-  var counterElement=documnet.getElementById(productId);
-  if(action === 'increment'){
-    counter++;
-  }else if(action === 'decrement' && counter>0){
-    counter--;
-  }
-  counterElement.innerText=counter;
-}
-
+// var counter=0;
+// function updateCounter(action,productId){
+//   var counterElement=documnet.getElementById(productId);
+//   if(action === 'increment'){
+//     counter++;
+//   }else if(action === 'decrement' && counter>0){
+//     counter--;
+//   }
+//   counterElement.innerText=counter;
+// }
 
 
 
@@ -476,3 +481,25 @@ function searchURL(key, value) {
   // Update the URL without triggering a page reload
   history.pushState({}, '', newURL);
 }
+
+
+
+// service svg nuud
+document.addEventListener('DOMContentLoaded', function () {
+  const carouselContainer = document.getElementById('serviceCarousel');
+  const numImages = 5;
+  const numRepeats = 4; // Number of times to repeat the images
+
+  for (let i = 0; i < numRepeats; i++) {
+    for (let j = 1; j <= numImages; j++) {
+      const img = document.createElement('img');
+      img.src = `assets/svg/service${j}.svg`;
+      img.alt = `service${j}`;
+      carouselContainer.appendChild(img);
+    }
+  }
+
+  carouselContainer.classList.add('carousel'); // Add the carousel class
+
+  // Optionally, you can add your carousel initialization logic here
+});
