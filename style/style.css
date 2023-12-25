@@ -614,10 +614,7 @@ footer img{
         display:flex;
         flex-direction:column;
     }
-    footer .footerFlex{
-        display:flex;
-        flex-direction:column;
-    }
+
     .productGet{
         display: flex;
         flex-direction:column;
