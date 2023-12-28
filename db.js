@@ -6,5 +6,7 @@ const pool = new Pool({
     database:"products",
     password:"123",
     port:5432,
-})
+    charset: 'utf8',
+});
+
 module.exports = pool;
