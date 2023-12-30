@@ -1,17 +1,11 @@
 // app.mjs
 import express from 'express';
-// import promotionRoutes from './routes/promotionRoutes.mjs';
-// import productRoutes from './routes/productRoutes.mjs';
-// import productDatasRoutes from './routes/productDatasRoutes.mjs';
 import swaggerUi from "swagger-ui-express";
 import swaggerJsondoc from "swagger-jsdoc";
-import MyClass from './mymodule.mjs';
-import data from './data.json' assert { type: 'json' };
+
 import productRoutes from "./src/routes.js";
 const app = express();
 const port = 3000;
-
-
 
 app.use(express.json());
 const options = {
@@ -28,7 +22,7 @@ const options = {
             },
             contact: {
                 name: "WebDevAdmin",
-                url: "https://",
+                url: "http://localhost:3000/",
                 email: "admin@num.edu.mn"
             }
         },
@@ -48,75 +42,187 @@ app.get(
         explorer: true
     })
 );
+
+    app.use("/products", productRoutes);
+
+
+
 /**
  * @swagger
  * tags:
- *  -
- *   name: "Product"
- *   description: Product related operations
- *      
- *  - 
- *   name: "About"
- *   description: Company info 
- *
- *  - 
- *   name: "Order"
- *   description: Order related operations 
-
+ *   name: Products
+ *   description: API operations related to products
  */
-/**
- * @swagger
- * paths:
- *  /products:
- *    get:
- *      tags:
- *          - Product
- *      summary: Get specific product from CU
- *      responses:
- *        "200":
- *          description: GET from CU API
- *          content:
- *            application/json:
- *              schema:
- *                type: string
- */
-app.get('/products/:productId', (req, res) => {
-    const productId = req.params.productId;
-    const product = data.productDatas.find(productData => productData.More === productId);
-  
-    if (product) {
-      res.send(product);
-    } else {
-      res.status(404).send('Product not found');
-
-    }
-  });
-app.get('/products',
-(req, res) => {
-    res.send(data)
-})
 
 /**
  * @swagger
- *  paths:
- *   /about:
- *    get:
- *     tags: 
- *      - About
- *     summary: Get product likes                
+ * components:
+ *   schemas:
+ *     Product:
+ *       type: object
+ *       properties:
+ *         pID:
+ *           type: integer
+ *           description: The product ID
+ *         name:
+ *           type: string
+ *           description: The product name
+ *         description:
+ *           type: string
+ *           description: The product description
+ *         Price:
+ *           type: string
+ *           description: The product price
+ *         image:
+ *           type: string
+ *           description: URL of the product image
+ *         discount:
+ *           type: string
+ *           description: The product discount percentage
+ *         discountingPrice:
+ *           type: string
+ *           description: The discounted price
+ *         manufacturer:
+ *           type: string
+ *           description: The manufacturer of the product
+ *         weight:
+ *           type: string
+ *           description: The weight of the product
+ *         expiration:
+ *           type: string
+ *           description: The expiration date of the product
+ *         ingredients:
+ *           type: string
+ *           description: The ingredients of the product
+ *         instructions:
+ *           type: string
+ *           description: The usage instructions for the product
+ *         storage:
+ *           type: string
+ *           description: Storage instructions for the product
+ *         type:
+ *           type: string
+ *           description: The type or category of the product
+ */
+
+/**
+ * @swagger
+ * /products:
+ *   get:
+ *     summary: Retrieve a list of products
+ *     tags: [Products]
  *     responses:
- *      "200":
- *       description: GET about data from CU API
- *       content:
- *        application/json:
- *         schema:
- *          type: string
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
+ *       500:
+ *         description: Internal server error
  */
-app.get('/', (req, res) => {
-    const myClass = new MyClass(req, res);
-    myClass.render();
-});
 
-app.use("/test", productRoutes);
+/**
+ * @swagger
+ * /products:
+ *   post:
+ *     summary: Create a new product
+ *     tags: [Products]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *     responses:
+ *       201:
+ *         description: Product created successfully
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Internal server error
+ */
 
+/**
+ * @swagger
+ * /products/{id}:
+ *   get:
+ *     summary: Retrieve a single product by ID
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the product to retrieve
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Product not found
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /products/{id}:
+ *   delete:
+ *     summary: Delete a product by ID
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the product to delete
+ *     responses:
+ *       200:
+ *         description: Product deleted successfully
+ *       404:
+ *         description: Product not found
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /products/{id}:
+ *   put:
+ *     summary: Update a product by ID
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID of the product to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *             required:
+ *               - name
+ *     responses:
+ *       200:
+ *         description: Product updated successfully
+ *       404:
+ *         description: Product not found
+ *       500:
+ *         description: Internal server error
+ */
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

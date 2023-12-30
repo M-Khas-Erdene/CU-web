@@ -14,8 +14,8 @@ const getProductById = (req, res)=>{
     });
 };
 const addProducts = (req, res) =>{
-    const {name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage, More, type} = req.body;
-    pool.query(queries.addProducts, [name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage, More, type], (error, result)=>{
+    const {pID, name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage, type} = req.body;
+    pool.query(queries.addProducts, [pID, name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage, type], (error, result)=>{
         if(error) throw error;
         res.status(201).send("Product Created Successfully!");
    
