@@ -4,6 +4,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJsondoc from "swagger-jsdoc";
 
 import productRoutes from "./src/routes.js";
+
 const app = express();
 const port = 3000;
 
@@ -43,7 +44,7 @@ app.get(
     })
 );
 
-    app.use("/products", productRoutes);
+app.use("/products", productRoutes);
 
 
 
