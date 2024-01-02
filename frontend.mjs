@@ -24,7 +24,7 @@ app.get('/:htmlFile', (req, res) => {
 
 app.get('/js/:jsFile', (req, res) => {
   const { jsFile } = req.params;
-  res.sendFile(path.join(__dirname, 'js', `${jsFile}.js`));
+  res.sendFile(path.join(__dirname, 'js', `${jsFile}`));
 });
 
 app.listen(port, () => {
