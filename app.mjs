@@ -2,17 +2,17 @@
 import express from 'express';
 import swaggerUi from "swagger-ui-express";
 import swaggerJsondoc from "swagger-jsdoc";
-
+import cors from 'cors';
 import productRoutes from "./src/routes.js";
 
 const app = express();
-const port = 3000;
-
+const port = 5000;
+app.use(cors());
 app.use(express.json());
 const options = {
     swaggerDefinition: {
         openapi: "3.0.0",
-        info: {
+        info: { 
             title: "CU API",
             version: "1.0.0",
             description:
@@ -23,13 +23,13 @@ const options = {
             },
             contact: {
                 name: "WebDevAdmin",
-                url: "http://localhost:3000/",
+                url: "http://localhost:5000/",
                 email: "admin@num.edu.mn"
             }
         },
         servers: [
             {
-                url: "http://localhost:3000/"
+                url: "http://localhost:5000/"
             }
         ]
     },
