@@ -1,7 +1,7 @@
 
 
 class Product {
-  constructor(name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage, More,type) {
+  constructor(name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage, pID,type) {
     this.discount = discount || null;
     this.name = name;
     this.description = description;
@@ -15,7 +15,7 @@ class Product {
     this.ingredients = ingredients;
     this.instructions = instructions;
     this.storage = storage;
-    this.More = More;
+    this.pID = pID;
     this.type = type||null;
   }
 
@@ -42,12 +42,12 @@ class Product {
       
         html += `
             <strong>${this.Price}</strong>
-              <button class="popup-button" id="${this.More}">Үзэх</button>
+              <button class="popup-button" id="${this.pID}">Үзэх</button>
           </article>
         `
         ;
         html +=`
-        <div class="productGet" data-id="${this.More}">
+        <div class="productGet" data-id="${this.pID}">
         <div class="productExit">
             <span class="close-popup">&times;</span>
         </div>
@@ -75,11 +75,11 @@ class Product {
             </div>
             <div class="buttons">
                 <div class="b-productAdd"> 
-                <button class="b" data-element="${this.More}">Сагслах</button>
+                <button class="b" data-element="${this.pID}">Сагслах</button>
                 <div class="productAdd">
-                    <button onclick="updateCounter('increment',${this.More})">+</button>
-                    <p data-count="${this.More}">1</p>
-                    <button onclick="updateCounter('decrement',${this.More})">-</button>
+                    <button onclick="updateCounter('increment',${this.pID})">+</button>
+                    <p data-count="${this.pID}">1</p>
+                    <button onclick="updateCounter('decrement',${this.pID})">-</button>
                 </div>
                 </div>
             </div>

@@ -1,12 +1,14 @@
 import Product from './Product.js'; // Assuming Product.js is in the same directory as home.js
-import {openPopup,ClosePopup,findProductByMore,plusSlides,isPriceInRange} from './utils.js';
+import  {openPopup,ClosePopup,findProductByMore,isPriceInRange} from './utils.js';
 import BasketItem from './BasketItem.js';
 import {updateURL,productURL,searchURL,getURLSearchParameters,getURLParameters} from './URL.js';
 import {calculateAndDisplayTotalPrice} from './totalPrice.js';
 import  {initializeSearch,searchProductsHome,searchProducts} from './filter.js';
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('filterButton').addEventListener('click', function () {
-    const selectedType = document.getElementById('filterType').value;
+  document.addEventListener('click', function () {
+    const filterBtn=document.getElementById('filterButton');
+    if(filterBtn){
+      const selectedType = document.getElementById('filterType').value;
     const selectedPrice = document.getElementById('filterPrice').value;
 
     fetch('data.json')
@@ -32,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
         updateURL(selectedType, selectedPrice);
       })
       .catch(error => console.error('Error fetching data:', error));
+    }
+    
   });
 
   // Initial load without clicking the filter button

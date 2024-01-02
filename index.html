@@ -7,14 +7,16 @@
     <meta name="description" content="CU web">
     <link rel="stylesheet" type="text/css" href="style\style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <script type="module" src="js/utils.js"></script>
     <script type="module" src="js/totalPrice.js"></script>
     <script type="module" src="js/Product.js"></script>
-    <script type="module" src="js/utils.js"></script>
     <script type="module" src="js/BasketItem.js"></script>
     <script type="module" src="js/URL.js"></script>
     <script type="module" src="js/filter.js"></script>
     <script type="module" src="js/homePage.js"></script>
     <script type="module" src="js/ProductPage.js"></script>
+    <script type="module" src="js/bigPicture.js"></script>
 </head>
 <script>
     const productQuantities = {};
@@ -44,6 +46,32 @@ function setCounter(productId){
         countElement.textContent=count;
     }
 }
+document.addEventListener("DOMContentLoaded", function () {
+    const carousel = document.querySelector(".carousel");
+    let currentIndex = 0;
+
+    function showImage(index) {
+        const totalImages = document.querySelectorAll(".carousel img").length;
+        index = (index + totalImages) % totalImages;
+        const translateValue = -index * 100 + "%"; /* Change from 10% to 100% for proper image translation */
+        carousel.style.transform = "translateX(" + translateValue + ")";
+        currentIndex = index;
+    }
+
+    // Function to handle next button click
+    function nextImage() {
+        showImage(currentIndex + 1);
+    }
+
+    // Function to handle previous button click
+    function prevImage() {
+        showImage(currentIndex - 1);
+    }
+
+    // Set up event listeners for next and previous buttons
+    document.querySelector(".nex").addEventListener("click", nextImage);
+    document.querySelector(".pre").addEventListener("click", prevImage);
+});
 </script>
 <body>
     <header>
@@ -128,18 +156,17 @@ function setCounter(productId){
                 <span id="btnClose" class="btnClose">&times;</span>
             </div>
         </header>
-        <main class="basketScroll" id="basketItems">
-     
-            
-
-                      
+        <main class="basketScroll" id="basketItems">               
         </main>
         <div class="basketActions">
             <section class="total">
                 <h3>Нийт үнэ:</h3>
                 <h3><span class="totalPrice" id="totalPrice">47500</span>₮</h3>
             </section>
-            <button>Төлбөр төлөх</button>
+            <div class="PayBtn">
+                <a href="Pay.html">Төлбөр төлөх</a>
+            </div>
+            
         </div>
     </section>
 </aside> 

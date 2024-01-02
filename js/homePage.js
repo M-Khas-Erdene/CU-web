@@ -1,5 +1,5 @@
 import Product from './Product.js'; // Assuming Product.js is in the same directory as home.js
-import {openPopup,ClosePopup,findProductByMore,plusSlides,isPriceInRange} from './utils.js';
+import  {openPopup,ClosePopup,findProductByMore,isPriceInRange} from './utils.js';
 import BasketItem from './BasketItem.js';
 import {updateURL,productURL,searchURL,getURLSearchParameters,getURLParameters} from './URL.js';
 import { calculateAndDisplayTotalPrice } from './totalPrice.js';
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         updateCounter(action, moreValue);
         }
     });
-    
+
     
   } catch (error) {
     console.error('Error fetching data:', error);

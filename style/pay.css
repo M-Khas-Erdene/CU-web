@@ -123,7 +123,7 @@ input[type="checkbox"]{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     grid-gap:16px;
-    margin:32px auto 32px auto;
+    margin:32px 20% 32px 20%;
 }
 .mainbody .container1{
     display:flex;
@@ -387,15 +387,20 @@ textarea{
     font-size:14px;
     font-weight:bold;
 }
-.basketActions button{
-    border:none;
+.basketActions .PayBtn{
+    display:flex;
+    justify-content: center;
     background-color:#3FDA26;
-    color:#fff;
     border-radius:15px;
     padding:10px;
     font-size:14px;
     cursor:pointer;
     margin-bottom:16px;
+}
+.basketActions .PayBtn a{
+    text-decoration: none;
+    color:#fff;
+    font-size:14px;
 }
 .basketScroll{
     width:320px;
@@ -414,18 +419,38 @@ footer {
     padding: 20px 0;
     margin-top: 20px;
 }
+footer {
+    display:flex;
+    flex-direction:row;
+    background-color: #FFFFFF;
+    color: #000;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 20px;
+    margin-bottom:0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-left:10%;
+    margin-right:10%;
+}
 footer ul{
-    display: flex;
-    justify-content: center;
-
+    display:flex;
+    justify-content:center;
 }
 footer ul li{
-    padding: 10px;
+    padding: 0;
 }
 footer p{
     padding: 10px;
 }
-@media screen and (max-width:1024px){
+footer .footerFlex{
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    justify-content: space-between;
+}
+footer img{
+    margin:10px;
+}
+@media screen and (max-width:1120px){
     nav{
         display:block;
         padding:0;
@@ -513,7 +538,10 @@ footer p{
         flex-direction:column;
         row-gap:10px;
     }
-    
+    footer{
+        display:flex;
+        flex-direction:column;
+    }
 }
 /* @media screen and (max-width:768px){
     .mobile{
