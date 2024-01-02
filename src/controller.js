@@ -15,7 +15,7 @@ const getProductById = (req, res)=>{
 };
 const addProducts = (req, res) => {
     const {
-      pID,
+    
       name,
       description,
       Price,
@@ -28,11 +28,12 @@ const addProducts = (req, res) => {
       ingredients,
       instructions,
       storage,
+      pID,
       type
     } = req.body;
   
     pool.query(
-      queries.addProducts, [pID, name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage, type],
+      queries.addProducts, [name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage,pID,  type],
       (error, result) => {
         if (error) {
           console.error('Error adding product to the database:', error);
@@ -44,19 +45,30 @@ const addProducts = (req, res) => {
     );
   };
 
-const deleteProduct = (req, res) =>{
-    const id = parseInt(req.params.id);
-    pool.query(queries.getProductById, [id], (error, result)=>{
-        const noProductFound = !result.rows.length;
-        if(noProductFound){
-        res.send("Product doesn't exist in the database");
+  const deleteProduct = (req, res) => {
+    const pID = parseInt(req.params.id);
+    pool.query(queries.getProductById, [pID], (error, result) => {
+        if (error) {
+            console.error("Error fetching product:", error);
+            return res.status(500).send("Internal Server Error");
         }
-    pool.query(queries.deleteProduct, [id], (error,result)=>{
-        if(error) throw error;
-        res.send("Product Deleted Successfully!");
-    });
+
+        const noProductFound = !result.rows.length;
+        if (noProductFound) {
+            return res.send("Product doesn't exist in the database");
+        }
+
+        pool.query(queries.deleteProduct, [pID], (error, result) => {
+            if (error) {
+                console.error("Error deleting product:", error);
+                return res.status(500).send("Internal Server Error");
+            }
+
+            res.send("Product Deleted Successfully!");
+        });
     });
 };
+
 const updateProduct = (req, res) =>{
     const id = parseInt(req.params.id);
     const {name} = req.body;
