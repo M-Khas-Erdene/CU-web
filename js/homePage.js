@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   let basketContainer;
   let productId; 
   let Data;
+  let quantity;
+
   try {
     const [promotionData, productData] = await Promise.all([
       fetch('data.json').then(response => response.json()),
@@ -34,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     Data.forEach(itemData => {
       basketContainer.innerHTML += new BasketItem(...Object.values(itemData)).generateBasketItems();
+      
       calculateAndDisplayTotalPrice();
     });
     const promotionProductsContainer = document.getElementById('promotionProducts');
@@ -64,21 +67,28 @@ document.addEventListener('DOMContentLoaded', async function () {
       if (event.target.classList.contains('b')) {
         productId = findProductByMore(event.target.dataset.element, promotionData.promotionData.concat(productData.productData));
         const moreValue = event.target.dataset.element;
-    
+        const countElement = document.querySelector(`[data-count="${productId.pID}"]`);
+        quantity = countElement ? parseInt(countElement.textContent) : 0;
+        console.log('quantity:',quantity);
+          const newAttributes = {
+            count: quantity
+          };
+          
+          const clonedProduct = Object.assign({}, productId, newAttributes);
         if (productId) {
-          basketContainer.innerHTML += new BasketItem(...Object.values(productId)).generateBasketItems();
+          basketContainer.innerHTML += new BasketItem(...Object.values(clonedProduct)).generateBasketItems();
           setCounter(moreValue);
           alert('Бүтээгдэхүүн амжилттай сагсанд нэмлээ!');
           calculateAndDisplayTotalPrice();
-          // const countElement = document.querySelector(`[data-count="${this.pID}"]`);
-          // const count = countElement ? parseInt(countElement.textContent) : 0;
+
+          
           try {
             const response = await fetch('http://localhost:5000/products', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify(productId),
+              body: JSON.stringify(clonedProduct),
             });
     
             if (response.ok) {
@@ -128,39 +138,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         updateCounter(action, moreValue);
       }
     });
-    document.addEventListener('DOMContentLoaded', async function(){
-      const {search}=getURLSearchParameters();
-      if(search != null && search !==undefined && search !== ''){
-        document.getElementById('searchInput').value=search;
-      }
-      const searchInput = document.getElementById('searchInput').value.toLowerCase();
-      const searchResults = document.getElementById('searchResults');
-      const searchHeading = document.getElementById('searchH2');
-      searchHeading.textContent='Хайлтын илэрц';
-      
-    
-      const filteredProducts = productData.productDatas.filter(product => {
-        return product.name.toLowerCase().includes(searchInput);
-      });
-
-      searchResults.className = 'products';
-      searchResults.style.marginLeft = '10%';
-      searchResults.style.marginRight = '10%'; 
-
-
-
-      const filteredProductElements = filteredProducts.map(productInfo => {
-        const product = new Product(...Object.values(productInfo));
-        return product.generateHTML();
-      });
-      if(searchInput != ""){
-        searchResults.innerHTML = filteredProductElements.join('');
-      } else{
-        searchResults.innerHTML='';
-        searchHeading.textContent='';
-      }
-      searchURL('search',searchInput);
-      });
+  
   } catch (error) {
     console.error('Error fetching data:', error);
   }

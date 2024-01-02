@@ -29,11 +29,12 @@ const addProducts = (req, res) => {
       instructions,
       storage,
       pID,
-      type
+      type,
+      count
     } = req.body;
   
     pool.query(
-      queries.addProducts, [name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage,pID,  type],
+      queries.addProducts, [name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage,pID,  type, count],
       (error, result) => {
         if (error) {
           console.error('Error adding product to the database:', error);

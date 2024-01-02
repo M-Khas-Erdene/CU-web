@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   let basketContainer=document.getElementById('basketItems');
   let Data;
   let productId; 
+  let quantity;
   try {
     const response = await fetch('http://localhost:5000/products', {
       method: 'GET',
@@ -90,10 +91,18 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (event.target.classList.contains('b')) {
           const productId = findProductByMore(event.target.dataset.element, data.productDatas);
           const moreValue=event.target.dataset.element;
+          const countElement = document.querySelector(`[data-count="${productId.pID}"]`);
+          quantity = countElement ? parseInt(countElement.textContent) : 0;
+          console.log('quantity:',quantity);
+            const newAttributes = {
+              count: quantity
+            };
+          
+          const clonedProduct = Object.assign({}, productId, newAttributes);
           // Now you have the product with the specified 'More' attribute
           if (productId) {
             // Do something with the product
-            basketContainer.innerHTML += new BasketItem(...Object.values(productId)).generateBasketItems();
+            basketContainer.innerHTML += new BasketItem(...Object.values(clonedProduct)).generateBasketItems();
             setCounter(moreValue);
             alert('Бүтээгдэхүүн амжилттай сагсанд нэмлээ!');
             calculateAndDisplayTotalPrice();
@@ -103,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(productId),
+                body: JSON.stringify(clonedProduct),
               });
       
               if (response.ok) {
