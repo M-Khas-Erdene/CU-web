@@ -85,6 +85,39 @@ document.addEventListener('DOMContentLoaded', async function () {
         updateCounter(action, moreValue);
       }
     });
+    document.addEventListener('DOMContentLoaded', async function(){
+      const {search}=getURLSearchParameters();
+      if(search != null && search !==undefined && search !== ''){
+        document.getElementById('searchInput').value=search;
+      }
+      const searchInput = document.getElementById('searchInput').value.toLowerCase();
+      const searchResults = document.getElementById('searchResults');
+      const searchHeading = document.getElementById('searchH2');
+      searchHeading.textContent='Хайлтын илэрц';
+      
+    
+      const filteredProducts = productData.productDatas.filter(product => {
+        return product.name.toLowerCase().includes(searchInput);
+      });
+
+      searchResults.className = 'products';
+      searchResults.style.marginLeft = '10%';
+      searchResults.style.marginRight = '10%'; 
+
+
+
+      const filteredProductElements = filteredProducts.map(productInfo => {
+        const product = new Product(...Object.values(productInfo));
+        return product.generateHTML();
+      });
+      if(searchInput != ""){
+        searchResults.innerHTML = filteredProductElements.join('');
+      } else{
+        searchResults.innerHTML='';
+        searchHeading.textContent='';
+      }
+      searchURL('search',searchInput);
+      });
   } catch (error) {
     console.error('Error fetching data:', error);
   }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Бүтээгдэхүүн</title>
     <meta name="description" content="CU web">
     <link rel="stylesheet" type="text/css" href="style\style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -14,37 +14,8 @@
     <script type="module" src="js/URL.js"></script>
     <script type="module" src="js/filter.js"></script>
     <script type="module" src="js/productPage.js"></script>
+    <script src="js/main.js"></script>
 </head>
-<script>
-        const productQuantities = {};
-function updateCounter(action, moreValue) {
-  const countElement = document.querySelector(`[data-count="${moreValue}"]`);
-  
-  if (countElement) {
-    let count = parseInt(countElement.textContent);
-
-    if (action === 'increment') {
-      count++;
-    } else if (action === 'decrement' && count > 1) {
-      count--;
-    }
-
-    countElement.textContent = count;
-
-    // Update the global variable with the latest count
-    productQuantities[moreValue] = count;
-  }
-}
-function setCounter(productId){
-    const countElement = document.querySelector(`[data-count="${productId}"]`);
-
-    if(productId){
-        let count=parseInt(countElement.textContent);
-        count=1;
-        countElement.textContent=count;
-    }
-}
-</script>
 <body>
  
     <header>

@@ -5,10 +5,8 @@ import {updateURL,productURL,searchURL,getURLSearchParameters,getURLParameters} 
 import {calculateAndDisplayTotalPrice} from './totalPrice.js';
 import  {initializeSearch,searchProductsHome,searchProducts} from './filter.js';
 document.addEventListener('DOMContentLoaded', function () {
-  document.addEventListener('click', function () {
-    const filterBtn=document.getElementById('filterButton');
-    if(filterBtn){
-      const selectedType = document.getElementById('filterType').value;
+  document.getElementById('filterButton').addEventListener('click', function () {
+    const selectedType = document.getElementById('filterType').value;
     const selectedPrice = document.getElementById('filterPrice').value;
 
     fetch('data.json')
@@ -34,8 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
         updateURL(selectedType, selectedPrice);
       })
       .catch(error => console.error('Error fetching data:', error));
-    }
-    
   });
 
   // Initial load without clicking the filter button
@@ -99,10 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
          
             const action = event.target.dataset.count === 'increment' ? 'increment' : 'decrement';
             const moreValue = event.target.parentElement.parentElement.querySelector('.b').dataset.element;
-          updateCounter(action, moreValue);
-          
-          
-          
+          updateCounter(action, moreValue);    
         }
       });
       

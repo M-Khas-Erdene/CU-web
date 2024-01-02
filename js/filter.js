@@ -16,7 +16,7 @@ function initializeSearch() {
     }
 
     searchProductsHome();
-
+  });
     document.addEventListener('DOMContentLoaded', async function () {
     jsonData = await fetch('data.json').then(response => response.json());
     const { search } = getURLSearchParameters();
@@ -26,7 +26,7 @@ function initializeSearch() {
     }
 
     searchProducts();
-  });})
+  });
 
 }
 
