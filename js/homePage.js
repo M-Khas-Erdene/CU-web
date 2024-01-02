@@ -4,11 +4,10 @@ import BasketItem from './BasketItem.js';
 import {updateURL,productURL,searchURL,getURLSearchParameters,getURLParameters} from './URL.js';
 import { calculateAndDisplayTotalPrice } from './totalPrice.js';
 
-
 document.addEventListener('DOMContentLoaded', async function () {
   let basketContainer;
   let productId; 
-
+  let Data;
   try {
     const [promotionData, productData] = await Promise.all([
       fetch('data.json').then(response => response.json()),
@@ -16,6 +15,27 @@ document.addEventListener('DOMContentLoaded', async function () {
     ]);
 
     basketContainer = document.getElementById('basketItems');
+    try {
+      const response = await fetch('http://localhost:5000/products', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (response.ok) {
+        console.log('Products retrieved successfully.');
+        Data = await response.json();
+      } else {
+        console.error('Failed to retrieve products. HTTP status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error retrieving products:', error);
+    }
+    Data.forEach(itemData => {
+      basketContainer.innerHTML += new BasketItem(...Object.values(itemData)).generateBasketItems();
+      calculateAndDisplayTotalPrice();
+    });
     const promotionProductsContainer = document.getElementById('promotionProducts');
     promotionProductsContainer.innerHTML = promotionData.promotionData.map(productInfo => {
       const product = new Product(...Object.values(productInfo));
@@ -29,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }).join('');
 
     document.addEventListener('click', async function (event) {
+
       if (event.target.classList.contains('popup-button')) {
         const productId = event.target.id;
         openPopup(productId);
@@ -49,7 +70,8 @@ document.addEventListener('DOMContentLoaded', async function () {
           setCounter(moreValue);
           alert('Бүтээгдэхүүн амжилттай сагсанд нэмлээ!');
           calculateAndDisplayTotalPrice();
-    
+          // const countElement = document.querySelector(`[data-count="${this.pID}"]`);
+          // const count = countElement ? parseInt(countElement.textContent) : 0;
           try {
             const response = await fetch('http://localhost:5000/products', {
               method: 'POST',
@@ -67,14 +89,35 @@ document.addEventListener('DOMContentLoaded', async function () {
           } catch (error) {
             console.error('Error adding product to the database:', error);
           }
+
         }
       }
-      console.log('Sending data to the server:', JSON.stringify(productId));
-
+      
       if (event.target.classList.contains('removeItem')) {
         const basketItem = event.target.closest('.basketItem');
+        const productID = parseInt(event.target.dataset.productid) || 0;
+
         if (basketItem) {
+          
           basketItem.remove();
+          try {
+
+            const response = await fetch(`http://localhost:5000/products/${productID}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(productId),
+            });
+    
+            if (response.ok) {
+              console.log('Product deleted to the database successfully.');
+            } else {
+              console.error('Failed to delete product to the database. HTTP status:', response.status);
+            }
+          } catch (error) {
+            console.error('Error delete product database:', error);
+          }
           calculateAndDisplayTotalPrice();
         }
       }

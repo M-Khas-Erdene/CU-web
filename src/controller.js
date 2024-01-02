@@ -84,10 +84,24 @@ const updateProduct = (req, res) =>{
     }
     );
 };
+// const getCount = (req, res) =>{
+//     pool.query(queries.getCount, (error, result)=>{
+//         if(error) throw error;
+//         res.status(200).json(result.rows);
+//     });
+// }
+// const addCount = (req, res) =>{
+//     pool.query(queries.addCount, (error, result)=>{
+//         if(error) throw error;
+//         res.status(200).json(result.rows);
+//     });
+// }
 module.exports = {
     getProducts,
     getProductById,
     addProducts,
     deleteProduct,
     updateProduct,
+    // getCount,
+    // addCount,
 }

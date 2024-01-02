@@ -4,7 +4,31 @@ import BasketItem from './BasketItem.js';
 import {updateURL,productURL,searchURL,getURLSearchParameters,getURLParameters} from './URL.js';
 import {calculateAndDisplayTotalPrice} from './totalPrice.js';
 import  {initializeSearch,searchProductsHome,searchProducts} from './filter.js';
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
+  let basketContainer=document.getElementById('basketItems');
+  let Data;
+  let productId; 
+  try {
+    const response = await fetch('http://localhost:5000/products', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (response.ok) {
+      console.log('Products retrieved successfully.');
+      Data = await response.json();
+    } else {
+      console.error('Failed to retrieve products. HTTP status:', response.status);
+    }
+  } catch (error) {
+    console.error('Error retrieving products:', error);
+  }
+  Data.forEach(itemData => {
+    basketContainer.innerHTML += new BasketItem(...Object.values(itemData)).generateBasketItems();
+    calculateAndDisplayTotalPrice();
+  });
   document.getElementById('filterButton').addEventListener('click', function () {
     const selectedType = document.getElementById('filterType').value;
     const selectedPrice = document.getElementById('filterPrice').value;
@@ -27,27 +51,22 @@ document.addEventListener('DOMContentLoaded', function () {
           .join('');
 
         ProductsContainer.insertAdjacentHTML('beforeend', filteredProductsHTML);
-
-        // Update URL with selected parameters
         updateURL(selectedType, selectedPrice);
       })
       .catch(error => console.error('Error fetching data:', error));
   });
-
-  // Initial load without clicking the filter button
   fetch('data.json')
     .then(response => response.json())
     .then(data => {
       const ProductsContainer = document.getElementById('Products');
-      const basketContainer=document.getElementById('basketItems');
+      
+      
       const allProductsHTML = data.productDatas.map(productInfo => {
         const product = new Product(...Object.values(productInfo));
         return product.generateHTML();
       })
       .join('');
       ProductsContainer.insertAdjacentHTML('beforeend', allProductsHTML);
-
-      // Get initial URL parameters and update the URL
       const { selectedType, selectedPrice } = getURLParameters();
       updateURL(selectedType, selectedPrice);
 
@@ -67,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
           productURL('');
         }
       });
-      document.addEventListener('click', function (event) {
+      document.addEventListener('click', async function (event) {
         if (event.target.classList.contains('b')) {
           const productId = findProductByMore(event.target.dataset.element, data.productDatas);
           const moreValue=event.target.dataset.element;
@@ -78,12 +97,52 @@ document.addEventListener('DOMContentLoaded', function () {
             setCounter(moreValue);
             alert('Бүтээгдэхүүн амжилттай сагсанд нэмлээ!');
             calculateAndDisplayTotalPrice();
+            try {
+              const response = await fetch('http://localhost:5000/products', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(productId),
+              });
+      
+              if (response.ok) {
+                console.log('Product added to the database successfully.');
+              } else {
+                console.error('Failed to add product to the database. HTTP status:', response.status);
+              }
+            } catch (error) {
+              console.error('Error adding product to the database:', error);
+            }
+  
           }
         }
+        
         if (event.target.classList.contains('removeItem')) {
           const basketItem = event.target.closest('.basketItem');
+          const productID = parseInt(event.target.dataset.productid) || 0;
+  
           if (basketItem) {
+            
             basketItem.remove();
+            try {
+  
+              const response = await fetch(`http://localhost:5000/products/${productID}`, {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(productId),
+              });
+      
+              if (response.ok) {
+                console.log('Product deleted to the database successfully.');
+              } else {
+                console.error('Failed to delete product to the database. HTTP status:', response.status);
+              }
+            } catch (error) {
+              console.error('Error delete product database:', error);
+            }
             calculateAndDisplayTotalPrice();
           }
         }
