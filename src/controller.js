@@ -13,14 +13,36 @@ const getProductById = (req, res)=>{
         res.status(200).json(result.rows);
     });
 };
-const addProducts = (req, res) =>{
-    const {pID, name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage, type} = req.body;
-    pool.query(queries.addProducts, [pID, name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage, type], (error, result)=>{
-        if(error) throw error;
-        res.status(201).send("Product Created Successfully!");
-   
-    });
-};
+const addProducts = (req, res) => {
+    const {
+      pID,
+      name,
+      description,
+      Price,
+      image,
+      discount,
+      discountingPrice,
+      manufacturer,
+      weight,
+      expiration,
+      ingredients,
+      instructions,
+      storage,
+      type
+    } = req.body;
+  
+    pool.query(
+      queries.addProducts, [pID, name, description, Price, image, discount, discountingPrice, manufacturer, weight, expiration, ingredients, instructions, storage, type],
+      (error, result) => {
+        if (error) {
+          console.error('Error adding product to the database:', error);
+          res.status(500).send('Internal server error');
+        } else {
+          res.status(201).send('Product added to the database successfully!');
+        }
+      }
+    );
+  };
 
 const deleteProduct = (req, res) =>{
     const id = parseInt(req.params.id);

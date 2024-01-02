@@ -6,14 +6,16 @@ import { calculateAndDisplayTotalPrice } from './totalPrice.js';
 
 
 document.addEventListener('DOMContentLoaded', async function () {
-  
+  let basketContainer;
+  let productId; 
+
   try {
     const [promotionData, productData] = await Promise.all([
       fetch('data.json').then(response => response.json()),
       fetch('data.json').then(response => response.json())
     ]);
 
-    const basketContainer = document.getElementById('basketItems');
+    basketContainer = document.getElementById('basketItems');
     const promotionProductsContainer = document.getElementById('promotionProducts');
     promotionProductsContainer.innerHTML = promotionData.promotionData.map(productInfo => {
       const product = new Product(...Object.values(productInfo));
@@ -26,54 +28,63 @@ document.addEventListener('DOMContentLoaded', async function () {
       return product.generateHTML();
     }).join('');
 
-    document.addEventListener('click', function (event) {
+    document.addEventListener('click', async function (event) {
       if (event.target.classList.contains('popup-button')) {
         const productId = event.target.id;
         openPopup(productId);
         productURL(productId);
       }
-    });
 
-    document.addEventListener('click', function (event) {
       if (event.target.classList.contains('close-popup')) {
         ClosePopup();
         productURL('');
       }
-    });
-    
 
-    document.addEventListener('click', function (event) {
       if (event.target.classList.contains('b')) {
-        const productId = findProductByMore(event.target.dataset.element, promotionData.promotionData.concat(productData.productData));
-        const moreValue=event.target.dataset.element;
-        // Now you have the product with the specified 'More' attribute
+        productId = findProductByMore(event.target.dataset.element, promotionData.promotionData.concat(productData.productData));
+        const moreValue = event.target.dataset.element;
+    
         if (productId) {
-          // Do something with the product
           basketContainer.innerHTML += new BasketItem(...Object.values(productId)).generateBasketItems();
           setCounter(moreValue);
           alert('Бүтээгдэхүүн амжилттай сагсанд нэмлээ!');
           calculateAndDisplayTotalPrice();
+    
+          try {
+            const response = await fetch('http://localhost:5000/products', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(productId),
+            });
+    
+            if (response.ok) {
+              console.log('Product added to the database successfully.');
+            } else {
+              console.error('Failed to add product to the database. HTTP status:', response.status);
+            }
+          } catch (error) {
+            console.error('Error adding product to the database:', error);
+          }
         }
-
       }
-      if(event.target.classList.contains('removeItem')) {
+      console.log('Sending data to the server:', JSON.stringify(productId));
+
+      if (event.target.classList.contains('removeItem')) {
         const basketItem = event.target.closest('.basketItem');
         if (basketItem) {
           basketItem.remove();
           calculateAndDisplayTotalPrice();
         }
       }
-    });
-    document.addEventListener('click', function (event) {
+
       if (event.target.tagName === 'BUTTON' && event.target.dataset.count) {
-        
-          const action = event.target.dataset.count === 'increment' ? 'increment' : 'decrement';
-          const moreValue = event.target.parentElement.parentElement.querySelector('.b').dataset.element;
+        const action = event.target.dataset.count === 'increment' ? 'increment' : 'decrement';
+        const moreValue = event.target.parentElement.parentElement.querySelector('.b').dataset.element;
         updateCounter(action, moreValue);
-        }
+      }
     });
-    
-    
   } catch (error) {
     console.error('Error fetching data:', error);
   }
