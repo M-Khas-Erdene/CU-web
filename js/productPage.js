@@ -168,7 +168,62 @@ document.addEventListener('DOMContentLoaded', async function () {
           updateCounter(action, moreValue);    
         }
       });
-      
+      document.addEventListener('input', function (event) {
+        if (event.target.id === 'searchInput') {
+            const searchInput = event.target;
+            const searchResultsHome = document.getElementById('searchResults');
+    
+            const searchQuery = searchInput.value.trim().toLowerCase();
+    
+            // Clear previous search results only if there is a search query
+            if (searchQuery === '') {
+                searchResultsHome.innerHTML = '';
+            } else {
+                // Fetch data from data.json
+                fetch('data.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Check if data has a "productDatas" property and is an array
+                        if (Array.isArray(data.productDatas)) {
+                            const filteredProducts = data.productDatas.filter(itemData => {
+                                const productName = itemData.name.toLowerCase();
+                                return productName.includes(searchQuery);
+                            });
+    
+                            // Clear previous search results
+                            searchResultsHome.innerHTML = '';
+    
+                            // Display the search results
+                            if (filteredProducts.length > 0) {
+                                filteredProducts.forEach(itemData => {
+                                    const product = new Product(...Object.values(itemData));
+                                    const productElement = document.createElement('div');
+                                    productElement.classList.add('searchResultItem');
+                                    productElement.innerHTML = product.generateHTML();
+    
+                                    // Add click event to handle the selection of a search result
+                                    productElement.addEventListener('click', function () {
+                                        // You can customize this part to perform an action when a result is selected
+                                        console.log('Selected Product:', itemData);
+                                    });
+    
+                                    searchResultsHome.appendChild(productElement);
+                                });
+                            } else {
+                                // Display a message when no results are found
+                                searchResultsHome.innerHTML = '<p>No results found.</p>';
+                            }
+                        } else {
+                            console.error('Invalid data structure:', data);
+                        }
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+        }
+    });
+    
+    
+    
       
     })
     .catch(error => console.error('Error fetching data:', error));
