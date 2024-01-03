@@ -6,10 +6,19 @@ const getProducts = (req , res)=>{
         res.status(200).json(result.rows);
     });
 };
-const getProductById = (req, res)=>{
+const getProductById = (req, res) => {
     const id = parseInt(req.params.id);
-    pool.query(queries.getProductById, [id], (error, result)=>{
-        if(error) throw error;
+
+    if (isNaN(id)) {
+        return res.status(400).send('Invalid id value. Must be a valid integer.');
+    }
+
+    pool.query(queries.getProductById, [id], (error, result) => {
+        if (error) {
+            console.error("Error fetching product:", error);
+            return res.status(500).send("Internal Server Error");
+        }
+
         res.status(200).json(result.rows);
     });
 };

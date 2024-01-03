@@ -1,9 +1,8 @@
-import Product from './Product.js'; // Assuming Product.js is in the same directory as home.js
+import Product from './Product.js'; 
 import  {openPopup,ClosePopup,findProductByMore,isPriceInRange} from './utils.js';
 import BasketItem from './BasketItem.js';
 import {updateURL,productURL,searchURL,getURLSearchParameters,getURLParameters} from './URL.js';
 import {calculateAndDisplayTotalPrice} from './totalPrice.js';
-// import  {searchProductsHome,searchProducts} from './filter.js';
 document.addEventListener('DOMContentLoaded', async function () {
   let basketContainer=document.getElementById('basketItems');
   let Data;
@@ -40,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       .then(response => response.json())
       .then(data => {
         const ProductsContainer = document.getElementById('Products');
-        ProductsContainer.innerHTML = ''; // Clear previous content
+        ProductsContainer.innerHTML = ''; 
 
         const filteredProductsHTML = data.productDatas
           .filter(({ type, Price }) =>

@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const carouselContainer = document.getElementById('serviceCarousel');
     const numImages = 5;
-    const numRepeats = 4; // Number of times to repeat the images
+    const numRepeats = 4; 
   
     for (let i = 0; i < numRepeats; i++) {
       for (let j = 1; j <= numImages; j++) {
@@ -14,9 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   
-    carouselContainer.classList.add('carousel'); // Add the carousel class
-  
-    // Optionally, you can add your carousel initialization logic here
+    carouselContainer.classList.add('carousel'); 
+
   });
 
 

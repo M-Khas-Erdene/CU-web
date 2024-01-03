@@ -600,10 +600,11 @@ footer img{
 }
 
 #alertBox {
-    background-color: #bd68c4;
+    background-color: white;
     padding: 20px;
     border-radius: 5px;
     text-align: center;
+    width: 400px;
 }
 
 
@@ -615,4 +616,8 @@ footer img{
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+#alertIcon {
+    width: 80px; 
+    height: 80px; 
 }

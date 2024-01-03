@@ -1,16 +1,19 @@
 import BasketItem from './BasketItem.js';
 import {calculateAndDisplayTotalPrice} from './totalPrice.js';
+//tulbur tuluh heseg deer darsnaar ajillana
 document.getElementById('paymentButton').addEventListener('click', function() {
   showCenteredAlert('Төлбөр амжилттай');
 });
-
+// ok button deer darahad index ruu shiljene
 function showCenteredAlert(message) {
   var overlay = document.getElementById('overlay');
   var alertBox = document.getElementById('alertBox');
   var alertMessage = document.getElementById('alertMessage');
   var okButton = document.getElementById('okButton');
+  var alertIcon = document.getElementById('alertIcon');
 
   alertMessage.innerHTML = message;
+  alertIcon.src = 'assets/svg/check_mark.svg';
   overlay.style.display = 'flex';
 
   okButton.addEventListener('click', function() {
@@ -22,7 +25,7 @@ document.getElementById('okButton').addEventListener('click', async function() {
   await deleteAllProducts();
   window.location.href = 'index.html';
 });
-
+// ok button deer darahad Basket sagsnii buh ugugdul ustana
 async function deleteAllProducts() {
   try {
     const response = await fetch('http://localhost:5000/products/', {
@@ -41,6 +44,7 @@ async function deleteAllProducts() {
     console.error('Error deleting all products:', error);
   }
 }
+//Zahilagiin medeelliig avah heseg
 document.addEventListener('DOMContentLoaded', function () {
   const paymentButton = document.getElementById('paymentButton');
   paymentButton.addEventListener('click', getUserData);
@@ -100,6 +104,7 @@ document.addEventListener('DOMContentLoaded',async function () {
   concatenatedString = formattedProducts.join(' ');
   console.log("concatenatedString",concatenatedString);
   document.addEventListener('click', async function(event){
+  // herev x deer darval ugugdliin sangaas ustgana
     if (event.target.classList.contains('removeItem')) {
       const basketItem = event.target.closest('.basketItem');
       const productID = parseInt(event.target.dataset.productid) || 0;
@@ -131,11 +136,11 @@ document.addEventListener('DOMContentLoaded',async function () {
   })
 });
 
-
+//sags dotorh ugugdluudiig haruulna
 function displayProducts(productsData) {
   const subbodyContainer = document.querySelector('.subbody');
   totalPrice = 0;
-
+  //total price oloh davtalt, utga onoolt
   productsData.forEach(itemData => {
     const productHTML = createProductHTML(itemData);
     subbodyContainer.innerHTML += productHTML;
@@ -145,7 +150,7 @@ function displayProducts(productsData) {
   });
   calculateTotalPrice();
 }
-
+//sags ruu damjuulah html
 function createProductHTML(itemData) {
   return `
     <div class="rowflex">
@@ -154,10 +159,12 @@ function createProductHTML(itemData) {
     </div>
   `;
 }
+//calculateTotalPrice function
 function calculateTotalPrice() {
     const totalPriceElement = document.querySelector('.niit');
       totalPriceElement.textContent = totalPrice;
   }
+  // hereglegchiin medeelliig avna
   async function getUserData() {
     var form = document.getElementById('orderForm');
     var formData = new FormData(form);
@@ -170,6 +177,7 @@ function calculateTotalPrice() {
     paymentData.description = formData.get('description');
     paymentData.totalPrice = totalPrice;
     paymentData.concatenatedString = concatenatedString;
+    //paymentData-g private api ashiglan private table ruu damjuulna
     try {
       const response = await fetch('http://localhost:5000/private', {
           method: 'POST',
