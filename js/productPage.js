@@ -3,7 +3,7 @@ import  {openPopup,ClosePopup,findProductByMore,isPriceInRange} from './utils.js
 import BasketItem from './BasketItem.js';
 import {updateURL,productURL,searchURL,getURLSearchParameters,getURLParameters} from './URL.js';
 import {calculateAndDisplayTotalPrice} from './totalPrice.js';
-import  {initializeSearch,searchProductsHome,searchProducts} from './filter.js';
+// import  {searchProductsHome,searchProducts} from './filter.js';
 document.addEventListener('DOMContentLoaded', async function () {
   let basketContainer=document.getElementById('basketItems');
   let Data;
@@ -173,3 +173,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     })
     .catch(error => console.error('Error fetching data:', error));
 });
+
+
+
+
+

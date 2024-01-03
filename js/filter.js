@@ -3,8 +3,6 @@ import {updateURL,productURL,searchURL,getURLSearchParameters,getURLParameters} 
 
 
 
-
-function initializeSearch() {
   let jsonData;
  
   document.addEventListener('DOMContentLoaded', async function () {
@@ -12,26 +10,16 @@ function initializeSearch() {
     const { search } = getURLSearchParameters();
 
     if (search !== null && search !== undefined && search !== '') {
-      document.getElementById('searchInput').value = search;
+        document.getElementById('searchInput').value = search;
     }
 
     searchProductsHome();
-  });
-    document.addEventListener('DOMContentLoaded', async function () {
-    jsonData = await fetch('data.json').then(response => response.json());
-    const { search } = getURLSearchParameters();
-
-    if (search !== null && search !== undefined && search !== '') {
-      document.getElementById('searchInput').value = search;
-    }
-
     searchProducts();
-  });
-
-}
+});
 
 
-function searchProducts() {
+
+async function searchProducts() {
   if (!jsonData) {
     console.error('jsonData is not defined.');
     return;
@@ -68,7 +56,7 @@ function searchProducts() {
 
 
 
-function searchProductsHome() {
+async function searchProductsHome() {
   if (!jsonData) {
     console.error('jsonData is not defined.');
     return;
@@ -104,4 +92,4 @@ function searchProductsHome() {
   }
   searchURL('search', searchInput);
 }
-export {initializeSearch,searchProductsHome,searchProducts}
+export{searchProductsHome,searchProducts};
