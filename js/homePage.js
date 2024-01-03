@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           'Content-Type': 'application/json',
         },
       });
+  
       
       if (response.ok) {
         console.log('Products retrieved successfully.');
@@ -34,6 +35,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
       console.error('Error retrieving products:', error);
     }
+    skeletonElements.forEach(element => {
+      element.classList.remove('skeleton');
+    });
     Data.forEach(itemData => {
       basketContainer.innerHTML += new BasketItem(...Object.values(itemData)).generateBasketItems();
       
