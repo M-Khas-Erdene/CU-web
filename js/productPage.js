@@ -1,5 +1,7 @@
 import Product from './Product.js'; 
 import  {openPopup,ClosePopup,findProductByMore,isPriceInRange} from './utils.js';
+import Product from './Product.js'; // Assuming Product.js is in the same directory as home.js
+import  {openPopup,ClosePopup,findProductByMore,isPriceInRange,findNum} from './utils.js';
 import BasketItem from './BasketItem.js';
 import {updateURL,productURL,searchURL,getURLSearchParameters,getURLParameters} from './URL.js';
 import {calculateAndDisplayTotalPrice} from './totalPrice.js';
@@ -8,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   let Data;
   let productId; 
   let quantity;
-  let skeletonElements;
+  //ugugduluu tatj avn
   try {
     const response = await fetch('http://localhost:5000/products', {
       method: 'GET',
@@ -26,11 +28,13 @@ document.addEventListener('DOMContentLoaded', async function () {
   } catch (error) {
     console.error('Error retrieving products:', error);
   }
-  
+  // sags ruu renderlene
   Data.forEach(itemData => {
     basketContainer.innerHTML += new BasketItem(...Object.values(itemData)).generateBasketItems();
     calculateAndDisplayTotalPrice();
+    findNum();
   });
+  //filter filterbutton deerh
   document.getElementById('filterButton').addEventListener('click', function () {
     const selectedType = document.getElementById('filterType').value;
     const selectedPrice = document.getElementById('filterPrice').value;
@@ -107,6 +111,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             setCounter(moreValue);
             alert('Бүтээгдэхүүн амжилттай сагсанд нэмлээ!');
             calculateAndDisplayTotalPrice();
+            findNum();
             try {
               const response = await fetch('http://localhost:5000/products', {
                 method: 'POST',
@@ -154,6 +159,7 @@ document.addEventListener('DOMContentLoaded', async function () {
               console.error('Error delete product database:', error);
             }
             calculateAndDisplayTotalPrice();
+            findNum();
           }
         }
         
@@ -167,7 +173,60 @@ document.addEventListener('DOMContentLoaded', async function () {
           updateCounter(action, moreValue);    
         }
       });
+      document.getElementById('searchInput').addEventListener('input', function (event) {
+        const searchInput = event.target;
+        const searchResultsHome = document.getElementById('searchResults');
+        const searchQuery = searchInput.value.trim().toLowerCase();
+    
+        // Function to get search parameters from URL
       
+    
+        // Clear previous search results only if there is no search query
+        if (searchQuery === '') {
+            searchResultsHome.innerHTML = '';
+        } else {
+            // Fetch data from data.json
+            fetch('data.json')
+                .then(response => response.json())
+                .then(data => {
+                    if (Array.isArray(data.productDatas)) {
+                        const filteredProducts = data.productDatas.filter(itemData => {
+                            const productName = itemData.name.toLowerCase();
+                            return productName.includes(searchQuery);
+                        });
+    
+                        searchResultsHome.innerHTML = '';
+    
+                        if (filteredProducts.length > 0) {
+                            filteredProducts.forEach(itemData => {
+                                const product = new Product(...Object.values(itemData));
+                                const productElement = document.createElement('div');
+                                productElement.classList.add('searchResultItem');
+                                productElement.innerHTML = product.generateHTML();
+    
+                                productElement.addEventListener('click', function () {
+                                    console.log('Selected Product:', itemData);
+                                });
+    
+                                searchResultsHome.appendChild(productElement);
+                            });
+                        } else {
+                            searchResultsHome.innerHTML = '<p>Хайлт олдсонгүй</p>';
+                        }
+    
+                        // Update URL with new search parameter
+                        searchURL(searchQuery);
+                    } else {
+                        console.error('Invalid data structure:', data);
+                    }
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+    });
+    
+    
+    
+    
       
     })
     .catch(error => console.error('Error fetching data:', error));

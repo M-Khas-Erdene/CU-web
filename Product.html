@@ -12,7 +12,6 @@
     <script type="module" src="js/utils.js"></script>
     <script type="module" src="js/BasketItem.js"></script>
     <script type="module" src="js/URL.js"></script>
-    <!-- <script type="module" src="js/filter.js"></script> -->
     <script type="module" src="js/productPage.js"></script>
     <script src="js/main.js"></script>
 </head>
@@ -26,7 +25,7 @@
             
             <div class="columnFlex">
                 <div class="searchBox">
-                    <input type="search" id="searchInput" placeholder="хайх" oninput="searchProducts()">
+                    <input type="search" id="searchInput" placeholder="хайх" >
                     
                     <span class="fa fa-search"></span>
                 </div>
@@ -64,8 +63,11 @@
           <button id="filterButton">Filter</button>
     </div>
     <h2 id="searchH2" class="searchH2"></h2>
-    <div id="searchResults" class="">
+    <div class="promotion">
+        <div id="searchResults" class="products">
+        </div>
     </div>
+   
 
     <section class="promotion">
         <h2>Бүтээгдэхүүн</h2>
@@ -164,7 +166,7 @@
             <img src="assets/svg/basket.svg" alt="" style="width: 30px">
             <section class="headerTitle">
                 <h2>Таны сагс</h2>
-                <span id="itemNum">10</span>
+                <span id="itemNum">0</span>
             </section>
             <div class="removeItem">
                 <span id="btnClose" class="btnClose">&times;</span>

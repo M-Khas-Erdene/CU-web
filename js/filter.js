@@ -61,7 +61,6 @@ async function searchProductsHome() {
     console.error('jsonData is not defined.');
     return;
   }
-
   const searchInput = document.getElementById('searchInput').value.toLowerCase();
   const searchResults = document.getElementById('searchResultsHome');
   const searchHeading = document.getElementById('searchH2');

@@ -1,5 +1,5 @@
 import Product from './Product.js'; // Assuming Product.js is in the same directory as home.js
-import  {openPopup,ClosePopup,findProductByMore,isPriceInRange} from './utils.js';
+import  {openPopup,ClosePopup,findProductByMore,isPriceInRange,findNum} from './utils.js';
 import BasketItem from './BasketItem.js';
 import {updateURL,productURL,searchURL,getURLSearchParameters,getURLParameters} from './URL.js';
 import { calculateAndDisplayTotalPrice } from './totalPrice.js';
@@ -10,14 +10,15 @@ document.addEventListener('DOMContentLoaded', async function () {
   let Data;
   let quantity;
   try {
+    //json dataga avj bn
     const [promotionData, productData] = await Promise.all([
       fetch('data.json').then(response => response.json()),
       fetch('data.json').then(response => response.json())
     ]);
-
+    // buteegdehuun sagslah container aa olj avj bn
     basketContainer = document.getElementById('basketItems');
 
-
+    // serverees sagslah baraanii medeellig avj bn
     try {
       const response = await fetch('http://localhost:5000/products', {
         method: 'GET',
@@ -36,38 +37,42 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
       console.error('Error retrieving products:', error);
     }
+    // serveres avsn datag sagsand hiine
     Data.forEach(itemData => {
       basketContainer.innerHTML += new BasketItem(...Object.values(itemData)).generateBasketItems();
       
       calculateAndDisplayTotalPrice();
+      findNum();
     });
     
+    // uramshuulaltai baraa buteegdehuunig render hiij bn
     const promotionProductsContainer=document.getElementById('promotionProducts');
     promotionProductsContainer.innerHTML = promotionData.promotionData.map(productInfo => {
       const product = new Product(...Object.values(productInfo));
       return product.generateHTML();
     }).join('');
 
-
+    // engiin baraa buteegdehuunig render hiij bn
     const normalProductsContainer = document.getElementById('normalProducts');
     normalProductsContainer.innerHTML = productData.productData.map(productInfo => {
       const product = new Product(...Object.values(productInfo));
       return product.generateHTML();
     }).join('');
 
+    //buteegdehuunuud dr hiij bi uildluudin negdsn eventlistener
     document.addEventListener('click', async function (event) {
-
+      // baraanii popup medeelel
       if (event.target.classList.contains('popup-button')) {
         const productId = event.target.id;
         openPopup(productId);
         productURL(productId);
       }
-
+      // poup haah
       if (event.target.classList.contains('close-popup')) {
         ClosePopup();
         productURL('');
       }
-
+      // sagslah, sagsalj bui baraa bolon tuunii toog serverluu post lono.
       if (event.target.classList.contains('b')) {
         productId = findProductByMore(event.target.dataset.element, promotionData.promotionData.concat(productData.productData));
         const moreValue = event.target.dataset.element;
@@ -84,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           setCounter(moreValue);
           alert('Бүтээгдэхүүн амжилттай сагсанд нэмлээ!');
           calculateAndDisplayTotalPrice();
-
+          findNum();
           
           try {
             const response = await fetch('http://localhost:5000/products', {
@@ -106,7 +111,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         }
       }
-      
+      // sagsnaas ustgaj bui baraag server bolon basketcontainer-s ustgana.
       if (event.target.classList.contains('removeItem')) {
         const basketItem = event.target.closest('.basketItem');
         const productID = parseInt(event.target.dataset.productid) || 0;
@@ -133,9 +138,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.error('Error delete product database:', error);
           }
           calculateAndDisplayTotalPrice();
+          findNum();
         }
       }
-
+      // baraani counter 
       if (event.target.tagName === 'BUTTON' && event.target.dataset.count) {
         const action = event.target.dataset.count === 'increment' ? 'increment' : 'decrement';
         const moreValue = event.target.parentElement.parentElement.querySelector('.b').dataset.element;
