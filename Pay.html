@@ -7,41 +7,45 @@
     <title>Төлбөр баталгаажуулах</title>
     <link rel="stylesheet" href="style/pay.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script type="module" src="js/Product.js"></script>
+    <script type="module" src="js/BasketItem.js"></script>
     <script type="module" src="js/utils.js"></script>
     <script type="module" src="js/Pay.js"></script>
-
+   
+   
+ 
 <body >
     <section class="container">
         <header>
             <input type="checkbox" id="check">
             <nav>
-            
+           
                 <a href="index.html" class="icon"><img src="assets/svg/logo.svg" alt="CU" ></a>
-                
+               
                 <div class="columnFlex">
                     <div class="searchBox">
                         <input type="search" placeholder="хайх">
                         <span class="fa fa-search"></span>
                     </div>
-                    <ul > 
+                    <ul >
                         <li ><a href="index.html">Нүүр Хуудас</a></li>
                         <li ><a href="Product.html">Бүтээгдэхүүн</a></li>
-                    </ul> 
-                
+                    </ul>
+               
                 </div>
                 <label for="check" class="bar" >
                     <span class="fa fa-bars" id="bars"></span>
                     <span class="fa fa-times" id="times"></span>
                 </label>
                 <button class="basketIcon" id="openBasketBtn"><img src="assets/svg/basket.svg" alt="Сагс"></button>
-                
-                
+               
+               
             </nav>
         </header>
         <main class="mainbody">
             <article class="container1">
                 <h2>Захиалагчийн мэдээлэл</h2>
-                <form id="orderForm">
+                <form>
                     <div class="rowflex" >
                         <input type="text" name="firstName" placeholder="Нэр">
                         <input type="text" name="lastName" placeholder="Овог">
@@ -52,8 +56,9 @@
                         <input type="text" name="address" placeholder="Таны хаяг">
                         <textarea name="description" id="" cols="30" rows="6" placeholder="Тайлбар"></textarea>
                     </div>
+                   
                 </form>
-                
+               
             </article>
              <article class="container2">
                 <h2>Таны Захиалга</h2>
@@ -61,19 +66,19 @@
                     <header>
                         <h3><span>Бүтээгдэхүүн</span></h3>
                         <h3><span>Үнийн дүн</span></h3>    
-                    </header>                 
+                    </header>                
                     <main class="subbody">
      
                     </main>
                     <section class="rowflex" class="niit">
                         <h3> <span>Нийт дүн</span> </h3>
                         <h3 class="niit"><span id="niit"></span></h3>
-                    </section>  
+                    </section>
                     <div class="center">
                         <div class="btn">
-                            <button type="submit" id="paymentButton" role="button">Төлбөр төлөх</button>    
+                            <a href="Promotion.html" role="button">Төлбөр төлөх</a>
                         </div>
-                    </div> 
+                    </div>
                 </section>
             </article>
         </main>
@@ -96,9 +101,9 @@
             <main class="basketScroll" id="basketItems">
                 <!--Эхний бараа-->
                
-
-                
-                
+ 
+               
+               
             </main>
             <div class="basketActions">
                 <section class="total">
@@ -110,7 +115,7 @@
                 </div>
             </div>
         </section>
-    </aside> 
+    </aside>
     <footer>
         <a href="index.html"><img src="assets/svg/CUMongolia.svg" alt="CuHome"></a>
         <div class="footerFlex">

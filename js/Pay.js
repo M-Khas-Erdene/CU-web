@@ -1,17 +1,11 @@
-document.addEventListener('DOMContentLoaded', function () {
-
-    const paymentButton = document.getElementById('paymentButton');
-    paymentButton.addEventListener('click', getUserData);
-});
-let productsData;
-let paymentData;
-
-
+import BasketItem from './BasketItem.js';
+import {calculateAndDisplayTotalPrice} from './totalPrice.js';
 let totalPrice = 0;
-document.addEventListener('DOMContentLoaded', function () {
-    displayProductsInSubbody();
-});
-export async function displayProductsInSubbody() {
+document.addEventListener('DOMContentLoaded',async function () {
+  let basketContainer;
+  let productsData;
+  let productId;
+  basketContainer=document.getElementById('basketItems');
   try {
     const response = await fetch('http://localhost:5000/products', {
       method: 'GET',
@@ -30,16 +24,54 @@ export async function displayProductsInSubbody() {
   } catch (error) {
     console.error('Error retrieving products:', error);
   }
-}
+  productsData.forEach(itemData => {
+    basketContainer.innerHTML += new BasketItem(...Object.values(itemData)).generateBasketItems();
+    
+    calculateAndDisplayTotalPrice();
+  });
+  document.addEventListener('click', async function(event){
+    if (event.target.classList.contains('removeItem')) {
+      const basketItem = event.target.closest('.basketItem');
+      const productID = parseInt(event.target.dataset.productid) || 0;
+
+      if (basketItem) {
+        
+        basketItem.remove();
+        try {
+
+          const response = await fetch(`http://localhost:5000/products/${productID}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(productId),
+          });
+  
+          if (response.ok) {
+            console.log('Product deleted to the database successfully.');
+          } else {
+            console.error('Failed to delete product to the database. HTTP status:', response.status);
+          }
+        } catch (error) {
+          console.error('Error delete product database:', error);
+        }
+        calculateAndDisplayTotalPrice();
+      }
+    }
+  })
+});
+
 
 function displayProducts(productsData) {
   const subbodyContainer = document.querySelector('.subbody');
   totalPrice = 0;
+
   productsData.forEach(itemData => {
     const productHTML = createProductHTML(itemData);
     subbodyContainer.innerHTML += productHTML;
-    const numericPrice = parseFloat(itemData.price.replace('₮', ''));
-    totalPrice += numericPrice;
+    const numericPrice = parseInt(itemData.price);
+    const count=itemData.count;
+    totalPrice += numericPrice*count;
   });
   calculateTotalPrice();
 }
@@ -48,39 +80,11 @@ function createProductHTML(itemData) {
   return `
     <div class="rowflex">
         <p><span>${itemData.name}</span></p>
-        <p><span>${itemData.price}</span></p>
-
+        <p><span>${itemData.count}</span><span> x </span>${itemData.price}</p>
     </div>
   `;
 }
 function calculateTotalPrice() {
     const totalPriceElement = document.querySelector('.niit');
-      totalPriceElement.textContent = totalPrice + '₮';
+      totalPriceElement.textContent = totalPrice;
   }
-
-function getUserData() {
-  var form = document.getElementById('orderForm');
-  var formData = new FormData(form);
-
-  var firstName = formData.get('firstName');
-  var lastName = formData.get('lastName');
-  var phoneNumber = formData.get('phoneNumber');
-  var eMail = formData.get('eMail');
-  var address = formData.get('address');
-  var description = formData.get('description');
-
-  paymentData = {
-    firstName: firstName,
-    lastName: lastName,
-    phoneNumber: phoneNumber,
-    eMail: eMail,
-    address: address,
-    description: description,
-    productName: [],
-    productPrice: [],
-    totalPrice: totalPrice
-};
-
-
-console.log("data: ", paymentData);
-}
