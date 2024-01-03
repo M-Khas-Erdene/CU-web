@@ -1,10 +1,70 @@
 import BasketItem from './BasketItem.js';
 import {calculateAndDisplayTotalPrice} from './totalPrice.js';
+document.getElementById('paymentButton').addEventListener('click', function() {
+  showCenteredAlert('Төлбөр амжилттай');
+});
+
+function showCenteredAlert(message) {
+  var overlay = document.getElementById('overlay');
+  var alertBox = document.getElementById('alertBox');
+  var alertMessage = document.getElementById('alertMessage');
+  var okButton = document.getElementById('okButton');
+
+  alertMessage.innerHTML = message;
+  overlay.style.display = 'flex';
+
+  okButton.addEventListener('click', function() {
+      window.location.href = 'index.html';
+  });
+}
+
+document.getElementById('okButton').addEventListener('click', async function() {
+  await deleteAllProducts();
+  window.location.href = 'index.html';
+});
+
+async function deleteAllProducts() {
+  try {
+    const response = await fetch('http://localhost:5000/products/', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      console.log('All products deleted successfully.');
+    } else {
+      console.error('Failed to delete all products. HTTP status:', response.status);
+    }
+  } catch (error) {
+    console.error('Error deleting all products:', error);
+  }
+}
+document.addEventListener('DOMContentLoaded', function () {
+  const paymentButton = document.getElementById('paymentButton');
+  paymentButton.addEventListener('click', getUserData);
+  paymentData = {
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    eMail: '',
+    address: '',
+    description: '',
+    concatenatedString:'',
+    totalPrice: 0
+};
+});
 let totalPrice = 0;
+let paymentData;
+let concatenatedString;
+let products=[];
 document.addEventListener('DOMContentLoaded',async function () {
   let basketContainer;
   let productsData;
   let productId;
+  let formattedProducts;
+
   basketContainer=document.getElementById('basketItems');
   try {
     const response = await fetch('http://localhost:5000/products', {
@@ -26,9 +86,19 @@ document.addEventListener('DOMContentLoaded',async function () {
   }
   productsData.forEach(itemData => {
     basketContainer.innerHTML += new BasketItem(...Object.values(itemData)).generateBasketItems();
-    
     calculateAndDisplayTotalPrice();
+    const product = {
+      productName: itemData.name,
+      productCount: itemData.count
+    };
+
+    products.push(product);
   });
+  formattedProducts = products.map(product => {
+    return `${product.productName} x ${product.productCount}`;
+  });
+  concatenatedString = formattedProducts.join(' ');
+  console.log("concatenatedString",concatenatedString);
   document.addEventListener('click', async function(event){
     if (event.target.classList.contains('removeItem')) {
       const basketItem = event.target.closest('.basketItem');
@@ -88,3 +158,33 @@ function calculateTotalPrice() {
     const totalPriceElement = document.querySelector('.niit');
       totalPriceElement.textContent = totalPrice;
   }
+  async function getUserData() {
+    var form = document.getElementById('orderForm');
+    var formData = new FormData(form);
+
+    paymentData.firstName = formData.get('firstName');
+    paymentData.lastName = formData.get('lastName');
+    paymentData.phoneNumber = formData.get('phoneNumber');
+    paymentData.eMail = formData.get('eMail');
+    paymentData.address = formData.get('address');
+    paymentData.description = formData.get('description');
+    paymentData.totalPrice = totalPrice;
+    paymentData.concatenatedString = concatenatedString;
+    try {
+      const response = await fetch('http://localhost:5000/private', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(paymentData),
+      });
+
+      if (response.ok) {
+          console.log('Payment data inserted successfully.');
+      } else {
+          console.error('Failed to insert payment data. HTTP status:', response.status);
+      }
+  } catch (error) {
+      console.error('Error inserting payment data:', error);
+  }
+}

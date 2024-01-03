@@ -16,11 +16,15 @@ app.use('/js', express.static(path.join(__dirname, 'js')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
+app.get('/private', (req, res) => {
+  res.sendFile(path.join(__dirname, 'privateindex.html'));
+});
 
 app.get('/:htmlFile', (req, res) => {
   const { htmlFile } = req.params;
   res.sendFile(path.join(__dirname, `${htmlFile}`));
 });
+
 
 app.get('/js/:jsFile', (req, res) => {
   const { jsFile } = req.params;

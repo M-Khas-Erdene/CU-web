@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders with Customer Info</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Orders with Customer Info</h2>
+
+<table id="ordersTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Description</th>
+            <th>Concatenated String</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    async function fetchData() {
+        try {
+            const response = await fetch('http://localhost:5000/private/'); 
+            const data = await response.json();
+
+            const tableBody = document.querySelector('#ordersTable tbody');
+
+            data.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${order.firstname}</td>
+                    <td>${order.lastname}</td>
+                    <td>${order.phonenumber}</td>
+                    <td>${order.email}</td>
+                    <td>${order.address}</td>
+                    <td>${order.description}</td>
+                    <td>${order.concatenatedstring}</td>
+                    <td>${order.totalprice}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    fetchData();
+</script>
+
+</body>
+</html>

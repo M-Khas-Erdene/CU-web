@@ -85,24 +85,22 @@ const updateProduct = (req, res) =>{
     }
     );
 };
-// const getCount = (req, res) =>{
-//     pool.query(queries.getCount, (error, result)=>{
-//         if(error) throw error;
-//         res.status(200).json(result.rows);
-//     });
-// }
-// const addCount = (req, res) =>{
-//     pool.query(queries.addCount, (error, result)=>{
-//         if(error) throw error;
-//         res.status(200).json(result.rows);
-//     });
-// }
+const deleteAllProducts = (req, res) => {
+  pool.query(queries.deleteAllProducts, (error, result) => {
+    if (error) {
+      console.error("Error deleting all products:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+
+    res.status(200).json({ message: "All products deleted successfully!" });
+  });
+};
+  
 module.exports = {
     getProducts,
     getProductById,
     addProducts,
     deleteProduct,
     updateProduct,
-    // getCount,
-    // addCount,
+    deleteAllProducts,
 }
