@@ -69,6 +69,16 @@ function closeBasket(){
   // end duusn
 
   //
+function findNum(){
+  const basketItems = document.querySelectorAll('.basketItem');
+    const totalItemElement = document.getElementById('itemNum');
+    const totalItems = Array.from(basketItems).reduce((total, basketItem) => {
+      const countElement = basketItem.querySelector('[data-count="basketCount"]');
+      const count = countElement ? parseInt(countElement.textContent) || 0 : 0;
+      return total + count ;
+    }, 0);
 
+    totalItemElement.textContent = `${totalItems}`;
+}
 
-export {openPopup,ClosePopup,findProductByMore,isPriceInRange}; 
+export {openPopup,ClosePopup,findProductByMore,isPriceInRange,findNum}; 

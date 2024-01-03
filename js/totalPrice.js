@@ -2,7 +2,6 @@
         
          
     const basketItems = document.querySelectorAll('.basketItem');
-  
     const totalPriceElement = document.getElementById('totalPrice');
     const totalPrice = Array.from(basketItems).reduce((total, basketItem) => {
       const countElement = basketItem.querySelector('[data-count="basketCount"]');
