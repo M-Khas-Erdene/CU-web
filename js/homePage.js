@@ -3,13 +3,11 @@ import  {openPopup,ClosePopup,findProductByMore,isPriceInRange} from './utils.js
 import BasketItem from './BasketItem.js';
 import {updateURL,productURL,searchURL,getURLSearchParameters,getURLParameters} from './URL.js';
 import { calculateAndDisplayTotalPrice } from './totalPrice.js';
-
 document.addEventListener('DOMContentLoaded', async function () {
   let basketContainer;
   let productId; 
   let Data;
   let quantity;
-
   try {
     const [promotionData, productData] = await Promise.all([
       fetch('data.json').then(response => response.json()),
@@ -17,7 +15,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     ]);
 
     basketContainer = document.getElementById('basketItems');
-    skeletonElements=document.getElementById('.skeleton');
+
+
     try {
       const response = await fetch('http://localhost:5000/products', {
         method: 'GET',
@@ -36,17 +35,18 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
       console.error('Error retrieving products:', error);
     }
-   
     Data.forEach(itemData => {
       basketContainer.innerHTML += new BasketItem(...Object.values(itemData)).generateBasketItems();
       
       calculateAndDisplayTotalPrice();
     });
-    const promotionProductsContainer = document.getElementById('promotionProducts');
+    
+    const promotionProductsContainer=document.getElementById('promotionProducts');
     promotionProductsContainer.innerHTML = promotionData.promotionData.map(productInfo => {
       const product = new Product(...Object.values(productInfo));
       return product.generateHTML();
     }).join('');
+
 
     const normalProductsContainer = document.getElementById('normalProducts');
     normalProductsContainer.innerHTML = productData.productData.map(productInfo => {

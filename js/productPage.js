@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         return product.generateHTML();
       })
       .join('');
-      ProductsContainer.insertAdjacentHTML('beforeend', allProductsHTML);
+      ProductsContainer.innerHTML = allProductsHTML
       const { selectedType, selectedPrice } = getURLParameters();
       updateURL(selectedType, selectedPrice);
 

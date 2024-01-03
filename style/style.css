@@ -150,6 +150,11 @@ footer img{
     align-items: center;
     justify-content: space-between;
 }
+.hide{
+    display:none;
+    visibility:none;
+    opacity:none;
+}
 /*sanal bolgoh text*/
 .suggest h3 {
     font-size: 40px;
@@ -630,6 +635,7 @@ footer img{
     .suggest h3 {
         font-size: 28px;
     }
+
     footer{
         display:flex;
         flex-direction:column;

@@ -14,6 +14,7 @@
     <script type="module" src="js/URL.js"></script>
     <script type="module" src="js/homePage.js"></script>
     <script type="module" src="js/animations.js"></script>
+    <script src="js/setTime.js"></script>
     <script src="js/main.js"></script>
 </head>
 
@@ -48,10 +49,20 @@
         <img src="assets/png/frontImage1.png" alt="breakfast" class="frontImage" id="slideshow">
         <button class="next" onclick="plusSlides(1)">&#10095;</button>
     </div>
-            <section class="suggest">
-                <h3>Та өглөөний цайгаа ууж амжаагүй юм биш биз?</h3>
-                <img src="assets/png/suggest1.png" alt="suggest1" class="top-left-image">
-                <img src="assets/png/suggest2.png" alt="suggest2" class="bottom-right-image">
+            <section class="suggest hide" id="morning">
+                <h3 id="suggestTitle">Welcome to CU! Та өглөөний цайгаа ууж амжаагүй юм биш биз??</h3>
+                <img src="assets/png/suggest1.png" alt="suggest1"  class="top-left-image">
+                <img src="assets/png/suggest2.png" alt="suggest2"  class="bottom-right-image">
+            </section>
+            <section class="suggest hide" id="afternoon">
+                <h3 id="suggestTitle">Welcome to CU! Өдрийн мэнд!</h3>
+                <img src="assets/png/suggest3.png" alt="suggest1"  class="top-left-image">
+                <img src="assets/png/suggest4.png" alt="suggest2"  class="bottom-right-image">
+            </section>
+            <section class="suggest hide" id="evening">
+                <h3 id="suggestTitle">Welcome to CU! Оройн мэнд!</h3>
+                <img src="assets/png/suggest5.png" alt="suggest1" class="top-left-image">
+                <img src="assets/png/suggest6.png" alt="suggest2"  class="bottom-right-image">
             </section>
     <h2 id="searchH2" class="searchH2"></h2>
     <div id="searchResultsHome">
@@ -60,7 +71,46 @@
     <section class="promotion">
         <h2>Урамшуулал</h2>
         <div class="products" id="promotionProducts">
-      
+            <article class="product skeleton">
+
+                <img src="" alt="">
+                <h3></h3>
+              
+              <p></p>
+              <p class="discount"></p> 
+              <strong></strong>
+              <button class="popup-button" id="">Үзэх</button>
+            </article>
+            <article class="product skeleton">
+        
+            <img src="" alt="">
+            <h3></h3>
+          
+          <p></p>
+          <p class="discount"></p> 
+          <strong></strong>
+          <button class="popup-button" id="">Үзэх</button>
+        </article>
+        <article class="product skeleton">
+        
+        <img src="" alt="">
+        <h3></h3>
+        
+        <p></p>
+        <p class="discount"></p> 
+        <strong></strong>
+        <button class="popup-button" id="">Үзэх</button>
+        </article>
+        <article class="product skeleton">
+        
+        <img src="" alt="">
+        <h3></h3>
+        
+        <p></p>
+        <p class="discount"></p> 
+        <strong></strong>
+        <button class="popup-button" id="">Үзэх</button>
+        </article>
         </div>
         <button class="promotionButton">
             Бүгдийг харах
@@ -75,15 +125,92 @@
     <section class="promotion">
         <h2>Бүтээгдэхүүн</h2>
         <div class="products", id="normalProducts">
-    
+            <article class="product skeleton">
+
+                <img src="" alt="">
+                <h3></h3>
+              
+              <p></p>
+              <p class="discount"></p> 
+              <strong></strong>
+              <button class="popup-button" id="">Үзэх</button>
+            </article>
+            <article class="product skeleton">
+
+                <img src="" alt="">
+                <h3></h3>
+              
+              <p></p>
+              <p class="discount"></p> 
+              <strong></strong>
+              <button class="popup-button" id="">Үзэх</button>
+            </article>
+            <article class="product skeleton">
+
+                <img src="" alt="">
+                <h3></h3>
+              
+              <p></p>
+              <p class="discount"></p> 
+              <strong></strong>
+              <button class="popup-button" id="">Үзэх</button>
+            </article>
+            <article class="product skeleton">
+
+                <img src="" alt="">
+                <h3></h3>
+              
+              <p></p>
+              <p class="discount"></p> 
+              <strong></strong>
+              <button class="popup-button" id="">Үзэх</button>
+            </article>
+            <article class="product skeleton">
+
+                <img src="" alt="">
+                <h3></h3>
+              
+              <p></p>
+              <p class="discount"></p> 
+              <strong></strong>
+              <button class="popup-button" id="">Үзэх</button>
+            </article>
+            <article class="product skeleton">
+
+                <img src="" alt="">
+                <h3></h3>
+              
+              <p></p>
+              <p class="discount"></p> 
+              <strong></strong>
+              <button class="popup-button" id="">Үзэх</button>
+            </article>
+            <article class="product skeleton">
+
+                <img src="" alt="">
+                <h3></h3>
+              
+              <p></p>
+              <p class="discount"></p> 
+              <strong></strong>
+              <button class="popup-button" id="">Үзэх</button>
+            </article>
+            <article class="product skeleton">
+
+                <img src="" alt="">
+                <h3></h3>
+              
+              <p></p>
+              <p class="discount"></p> 
+              <strong></strong>
+              <button class="popup-button" id="">Үзэх</button>
+            </article>
         </div>
         <button class="promotionButton">
             Бүгдийг харах
         </button>
     </section>
-    <section id="detailedInformation">
-            <!-- End barani delgerngui orh ystoi -->
-    </section>
+
 
     <!-- End sagsni code -->
     <div class="backDrop"></div>

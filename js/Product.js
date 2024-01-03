@@ -20,7 +20,7 @@ class Product {
 
   generateHTML() {
     return `
-      <article class="product skeleton">
+      <article class="product">
         ${this.generateProductHTML()}
       </article>
 
