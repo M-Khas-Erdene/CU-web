@@ -1,6 +1,5 @@
 
 import BasketItem from './BasketItem.js';
-import {calculateAndDisplayTotalPrice} from './totalPrice.js';
 let totalPrice = 0;
 document.addEventListener('DOMContentLoaded',async function () {
   let basketContainer;

@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   let Data;
   let productId; 
   let quantity;
+  let skeletonElements;
   try {
     const response = await fetch('http://localhost:5000/products', {
       method: 'GET',
@@ -26,6 +27,10 @@ document.addEventListener('DOMContentLoaded', async function () {
   } catch (error) {
     console.error('Error retrieving products:', error);
   }
+  skeletonElements = document.querySelectorAll('.skeleton');
+    skeletonElements.forEach(element => {
+      element.classList.add('loading-skeleton');
+    });
   Data.forEach(itemData => {
     basketContainer.innerHTML += new BasketItem(...Object.values(itemData)).generateBasketItems();
     calculateAndDisplayTotalPrice();
