@@ -41,7 +41,7 @@
         <main class="mainbody">
             <article class="container1">
                 <h2>Захиалагчийн мэдээлэл</h2>
-                <form>
+                <form id="orderForm">
                     <div class="rowflex" >
                         <input type="text" name="firstName" placeholder="Нэр">
                         <input type="text" name="lastName" placeholder="Овог">
@@ -52,7 +52,6 @@
                         <input type="text" name="address" placeholder="Таны хаяг">
                         <textarea name="description" id="" cols="30" rows="6" placeholder="Тайлбар"></textarea>
                     </div>
-                    
                 </form>
                 
             </article>
@@ -69,10 +68,10 @@
                     <section class="rowflex" class="niit">
                         <h3> <span>Нийт дүн</span> </h3>
                         <h3 class="niit"><span id="niit"></span></h3>
-                    </section>
+                    </section>  
                     <div class="center">
                         <div class="btn">
-                            <a href="Promotion.html" role="button">Төлбөр төлөх</a> 
+                            <button type="submit" id="paymentButton" role="button">Төлбөр төлөх</button>    
                         </div>
                     </div> 
                 </section>

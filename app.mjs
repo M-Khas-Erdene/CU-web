@@ -4,7 +4,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJsondoc from "swagger-jsdoc";
 import cors from 'cors';
 import productRoutes from "./src/routes.js";
-
+import privateRoutes from "./src_private/routes.js"
 const app = express();
 const port = 5000;
 app.use(cors());
@@ -33,7 +33,7 @@ const options = {
             }
         ]
     },
-    apis: ["./app.mjs"]
+    apis: ['./src/routes.js', './src_private/routes.js']
 };
 const specs = swaggerJsondoc(options);
 app.use("/docs", swaggerUi.serve);
@@ -45,6 +45,7 @@ app.get(
 );
 
 app.use("/products", productRoutes);
+app.use("/private",  privateRoutes);
 
 
 
@@ -62,9 +63,6 @@ app.use("/products", productRoutes);
  *     Product:
  *       type: object
  *       properties:
- *         pID:
- *           type: integer
- *           description: The product ID
  *         name:
  *           type: string
  *           description: The product name
@@ -101,6 +99,9 @@ app.use("/products", productRoutes);
  *         storage:
  *           type: string
  *           description: Storage instructions for the product
+ *         pID:
+ *           type: integer
+ *           description: The product ID
  *         type:
  *           type: string
  *           description: The type or category of the product
