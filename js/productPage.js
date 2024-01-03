@@ -27,10 +27,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   } catch (error) {
     console.error('Error retrieving products:', error);
   }
-  skeletonElements = document.querySelectorAll('.skeleton');
-    skeletonElements.forEach(element => {
-      element.classList.add('loading-skeleton');
-    });
+  
   Data.forEach(itemData => {
     basketContainer.innerHTML += new BasketItem(...Object.values(itemData)).generateBasketItems();
     calculateAndDisplayTotalPrice();

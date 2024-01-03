@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     ]);
 
     basketContainer = document.getElementById('basketItems');
+    skeletonElements=document.getElementById('.skeleton');
     try {
       const response = await fetch('http://localhost:5000/products', {
         method: 'GET',
@@ -35,9 +36,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
       console.error('Error retrieving products:', error);
     }
-    skeletonElements.forEach(element => {
-      element.classList.remove('skeleton');
-    });
+   
     Data.forEach(itemData => {
       basketContainer.innerHTML += new BasketItem(...Object.values(itemData)).generateBasketItems();
       
