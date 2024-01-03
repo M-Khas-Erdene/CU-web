@@ -45,7 +45,7 @@
         <main class="mainbody">
             <article class="container1">
                 <h2>Захиалагчийн мэдээлэл</h2>
-                <form>
+                <form id="orderForm">
                     <div class="rowflex" >
                         <input type="text" name="firstName" placeholder="Нэр">
                         <input type="text" name="lastName" placeholder="Овог">
@@ -76,7 +76,14 @@
                     </section>
                     <div class="center">
                         <div class="btn">
-                            <a href="Promotion.html" role="button">Төлбөр төлөх</a>
+                            <button type="submit" id="paymentButton" role="button">Төлбөр төлөх</button>
+                        </div>
+                    
+                        <div id="overlay">
+                            <div id="alertBox">
+                                <p id="alertMessage"></p>
+                                <button id="okButton">OK</button>
+                            </div>
                         </div>
                     </div>
                 </section>
